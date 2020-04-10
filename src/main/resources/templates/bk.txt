@@ -1,0 +1,10 @@
+<%-- 				<tr th:each="ParticipantHeaderInfoDto, dto : ${participantHeaderInfoList}">
+					<td th:text="${dto.count}"></td>
+ 					<th:block th:each="PlayerResultPoint : ${pointList}">
+	 					<th:block th:if="${dto.count} == ${PlayerResultPoint.hanso}">
+							<td th:text="*{PlayerResultPoint.rank}"></td>
+							<td th:text="*{PlayerResultPoint.score}"></td>
+							<td th:text="*{PlayerResultPoint.point}"></td>
+						</th:block>
+					</th:block>
+				</tr> --%>
