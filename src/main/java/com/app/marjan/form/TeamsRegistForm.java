@@ -7,7 +7,7 @@ import com.app.marjan.entity.User;
 import lombok.Data;
 
 @Data
-public class TeamsPlayDateForm implements Serializable {
+public class TeamsRegistForm implements Serializable {
 
 	public User userList = new User();
 

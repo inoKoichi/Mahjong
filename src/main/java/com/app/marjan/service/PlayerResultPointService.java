@@ -53,6 +53,15 @@ public class PlayerResultPointService {
 	}
 
 	/**
+	 *
+	 * @param player
+	 * @return
+	 */
+    public PlayerResultPoint save(PlayerResultPoint playerResultPoint) {
+        return pointListRepository.save(playerResultPoint);
+    }
+
+    /**
 	 * user情報を取得する
 	 * @param userId
 	 * @return

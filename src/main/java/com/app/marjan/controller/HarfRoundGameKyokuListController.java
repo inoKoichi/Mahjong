@@ -1,8 +1,6 @@
 package com.app.marjan.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -10,12 +8,12 @@ import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.app.marjan.dto.ParticipantHeaderInfoDto;
 import com.app.marjan.dto.PlayerPlayResultDto;
 import com.app.marjan.entity.PlayerResultPoint;
-import com.app.marjan.entity.Teams;
 import com.app.marjan.entity.TeamsPlayDate;
 import com.app.marjan.entity.User;
 import com.app.marjan.service.PlayerResultPointService;
@@ -36,38 +34,35 @@ public class HarfRoundGameKyokuListController {
 	public PlayerResultPointService playerResultPointService;
 
 	@RequestMapping("/harfRoundGameKyokuList")
-	public String helloWorld(Model model) {
-//		model.addAttribute("message", "こんにちは世界");
+	public String harfRoundGameKyokuList(@ModelAttribute("groupId") String groupId,
+							 @ModelAttribute("playDate") String playDate,
+							 Model model) {
+
+		// modelに設定
+		model.addAttribute("groupId", "test");
+		model.addAttribute("playDate", playDate);
 
 		// user情報を取得
 		List<User> userList = userService.findAll();
 		model.addAttribute("userList", userList);
 
-		// グループ情報を取得
-		// TODO:前の画面からグループ情報を引き継ぐ（現状はtest様にマジックナンバーで取得）
-		String groupId="narimasu";
-		// TODO:前の画面から遊んだ日を引き継ぐ（現状はtest様にマジックナンバーで取得）
-		SimpleDateFormat groupPlayDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date playDate = new Date();
-
-		// グループリストを取得
-		Teams groupInfo = groupService.findByGroupId(groupId);
-
 		// グループ実施日を取得
-		TeamsPlayDate groupPlayDate = groupPlayDateService.findByGroupIdAndPlayDate(groupId,groupPlayDateFormat.format(playDate).toString());
+		TeamsPlayDate groupPlayDate = groupPlayDateService.findByGroupIdAndPlayDate(groupId, playDate);
 
 		// グループ実施日のゲーム情報を取得
-		List<PlayerResultPoint>  pointList = playerResultPointService.findByGroupIdAndPlayDate(groupId,groupPlayDateFormat.format(playDate).toString());
-		System.out.println("pointList.get(0) : " + pointList.get(0).userId);
+		List<PlayerResultPoint>  pointList = playerResultPointService.findByGroupIdAndPlayDate(groupId, groupPlayDate.playDate);
 
 		// 画面情報を設定
 		List<ParticipantHeaderInfoDto> participantHeaderInfoList = getParticipantHeaderInfoList(pointList, userList);
-		@SuppressWarnings("rawtypes")
 		Map<Integer, List> pointMap = sortUserList(pointList);
-		model.addAttribute("participantHeaderInfoList", participantHeaderInfoList);
-		model.addAttribute("pointList", pointList);
-		model.addAttribute("testPoint", setPlayerPlayResultDto(pointList.get(0)));
 		model.addAttribute("pointMap", pointMap);
+
+		// 点数レコードを取得できない場合パラメータは設定しない
+		if(!pointList.isEmpty()) {
+			model.addAttribute("participantHeaderInfoList", participantHeaderInfoList);
+			model.addAttribute("pointList", pointList);
+			model.addAttribute("testPoint", setPlayerPlayResultDto(pointList.get(0)));
+		}
 
 		return "harfRoundGameKyokuList";
 	}
@@ -75,6 +70,9 @@ public class HarfRoundGameKyokuListController {
 	/**
 	 * 参加者情報を取得
 	 * 金額と得点の合計も取得
+	 * @param pointList
+	 * @param userList
+	 * @return
 	 */
 	public List<ParticipantHeaderInfoDto> getParticipantHeaderInfoList(List<PlayerResultPoint> pointList, List<User> userList) {
 		List<ParticipantHeaderInfoDto> participantHeaderInfoList = new ArrayList<ParticipantHeaderInfoDto>();
@@ -106,10 +104,10 @@ public class HarfRoundGameKyokuListController {
 	 * @param userList
 	 * @return
 	 */
-//	public Map<String, PlayerResultPoint> sortUserList(List<PlayerResultPoint> playerResultPointList) {
 	@SuppressWarnings("rawtypes")
 	public Map<Integer, List> sortUserList(List<PlayerResultPoint> playerResultPointList) {
 		Map<String, PlayerResultPoint> playerResultPointMap = new TreeMap<String, PlayerResultPoint>();
+		// 4人分ぴったりのデータ出ない場合エラー
 		if(playerResultPointList.size()%4 != 0) {
 			System.out.println("エラー発生：半荘のデータに不備があります。");
 		}
@@ -129,12 +127,11 @@ public class HarfRoundGameKyokuListController {
 			// 取得したデータをソート
 			pointList.put(i, sortPoint(resultList));
 		}
-
 		return pointList;
 	}
 
 	/**
-	 *
+	 * 得点で表示されたユーザー通りにソートする
 	 * @param resultListBefore
 	 * @return
 	 */
@@ -142,21 +139,19 @@ public class HarfRoundGameKyokuListController {
 
 		List<PlayerPlayResultDto> resultListAfter = new ArrayList<PlayerPlayResultDto>();
 		List<User> userList = userService.findAll();
+		// 取得したユーザー情報
 		for(User user: userList) {
-			System.out.println(user.userId);
 			for(PlayerResultPoint playerResultPoint: resultListBefore) {
 				if(user.userId.equals(playerResultPoint.userId)) {
 					resultListAfter.add(setPlayerPlayResultDto(playerResultPoint));
 				}
 			}
 		}
-		System.out.println("TODO : size : " + resultListAfter.size());
-
 		return resultListAfter;
 	}
 
 	/**
-	 *
+	 * entity情報をsetする
 	 * @param point
 	 * @return
 	 */
@@ -168,10 +163,8 @@ public class HarfRoundGameKyokuListController {
 		dto.userId = point.userId;
 		dto.playDate = point.playDate;
 		dto.seatWind = point.seatWind;
-//		dto.hakoFlag = (point.hakoFlag == 0 ? true : false);
 		dto.hakoFromPlayer = point.hakoFromPlayer;
 		dto.yakumanFlag = point.yakumanFlag;
-
 		return dto;
 	}
 

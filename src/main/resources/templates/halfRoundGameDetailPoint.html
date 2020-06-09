@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" rel="stylesheet"></link>
+<link href="css/navbar.css" th:href="@{/css/navbar.css}" rel="stylesheet"></link>
+<link href="css/navbar.css" th:href="@{/css/tableCustome.css}" rel="stylesheet"></link>
+<script src="js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+
+<title>TOP画面</title>
+<style>
+#map-canvas {
+	width: 600px;
+	height: 600px;
+}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">MCP</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="shopSearchResultList"> private</a></li>
+				<li><a href="shopSearch">DCP 麻雀部</a></li>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="shopSearchResultList"> private</a></li>
+				<li><a href="halfRoundGameDetailPoint">test</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			</ul>
+		</div>
+	</nav>
+	<br />
+	<br />
+	<div class="container">
+		<div class="row mb-2">
+			<div class="col-md-6">
+				<!-- 				<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"> -->
+				<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+					<div class="col p-4 d-flex flex-column position-static">
+						<form th:action="@{/createPointInpitDisp}" th:object="${pointForm}" method="post">
+							<br />
+                            <table class="table-hover table-responsive table-scroll">
+                                <tr colspan="5">
+                                    <th colspan="2"><label for="text1">氏名</label></th>
+                                    <th colspan="3"><input type="text" id="userId1" class="form-control"></th>
+                                </tr>
+                                <tr colspan="5">
+                                    <td colspan="2"><label for="text1">得点</label></td>
+                                    <td colspan="1"><input type="text" id="point1" class="form-control"></td>
+                                    <td colspan="2">点</td>
+                                </tr>
+                                <tr colspan="5">
+                                    <td colspan="2"><label for="text1">風</label></td>
+                                    <td colspan="1"><input type="text" id="seatWind1" class="form-control"></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="table-hover table-responsive table-scroll">
+                                <tr colspan="5">
+                                    <th colspan="2"><label for="text1">氏名</label></th>
+                                    <th colspan="3"><input type="text" id="userId2" class="form-control"></th>
+                                </tr>
+                                <tr colspan="5">
+                                    <td colspan="2"><label for="text1">得点</label></td>
+                                    <td colspan="1"><input type="text" id="point2" class="form-control"></td>
+                                    <td colspan="2">点</td>
+                                </tr>
+                                <tr colspan="5">
+                                    <td colspan="2"><label for="text1">風</label></td>
+                                    <td colspan="1"><input type="text" id="seatWind2" class="form-control"></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </table>
+                            <table class="table-hover table-responsive table-scroll">
+                                <tr colspan="5">
+                                    <th colspan="2"><label for="text1">氏名</label></th>
+                                    <th colspan="3"><input type="text" id="userId3" class="form-control"></th>
+                                </tr>
+                                <tr colspan="5">
+                                    <td colspan="2"><label for="text1">得点</label></td>
+                                    <td colspan="1"><input type="text" id="point3" class="form-control"></td>
+                                    <td colspan="2">点</td>
+                                </tr>
+                                <tr colspan="5">
+                                    <td colspan="2"><label for="text1">風</label></td>
+                                    <td colspan="1"><input type="text" id="seatWind3" class="form-control"></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </table>
+                            <table class="table-hover table-responsive table-scroll">
+                                <tr colspan="5">
+                                    <th colspan="2"><label for="text1">氏名</label></th>
+                                    <th colspan="3"><input type="text" id="userId4" class="form-control"></th>
+                                </tr>
+                                <tr colspan="5">
+                                    <td colspan="2"><label for="text1">得点</label></td>
+                                    <td colspan="1"><input type="text" id="point4" class="form-control"></td>
+                                    <td colspan="2">点</td>
+                                </tr>
+                                <tr colspan="5">
+                                    <td colspan="2"><label for="text1">風</label></td>
+                                    <td colspan="1"><input type="text" id="seatWind4" class="form-control"></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </table>
+                            <input type="hidden" name="groupId" th:value="${groupId}" />
+                            <input type="hidden" name="playDate" th:value="${playDate}" />
+							<br /> <br /> <br />
+							<button type="submit" class="btn btn-default">登録</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

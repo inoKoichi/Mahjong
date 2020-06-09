@@ -1,7 +1,6 @@
 package com.app.marjan.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,26 +12,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.marjan.entity.User;
-import com.app.marjan.repository.UserRepository;
+import com.app.marjan.entity.Teams;
+import com.app.marjan.repository.TeamsRepository;;
 
 @Service
 @Transactional
-public class UserService {
+public class TeamsRegistService {
 
 	@Autowired
-	private UserRepository userListRepository;
+	private TeamsRepository groupListRepository;
 
     @PersistenceContext
     private EntityManager em;
 
-	/**
+    /**
 	 * 全user情報を取得する
 	 * @param userId
 	 * @return List<User>
 	 **/
-	public List<User> findAll() {
-		return userListRepository.findAll();
+	public List<Teams> findAll() {
+		return groupListRepository.findAll();
 	}
 
 	/**
@@ -40,8 +39,8 @@ public class UserService {
 	 * @param userId
 	 * @return User
 	 */
-	public User updata(User user) {
-		return userListRepository.save(user);
+	public Teams updata(Teams user) {
+		return groupListRepository.save(user);
 	}
 
 	/**
@@ -49,34 +48,25 @@ public class UserService {
 	 * @param userId
 	 */
 	public void delete(Long id) {
-		userListRepository.deleteById(id);
+		groupListRepository.deleteById(id);
 	}
 
 	/**
-	 * user情報を取得する
+	 * グループ日付情報を取得する
 	 * @param userId
 	 * @return
 	 */
-	public Optional<User> findById(Long userId) {
-		return userListRepository.findById(userId);
-	}
-
-	/**
-	 * user情報を取得する
-	 * @param userId
-	 * @return
-	 */
-	public User findByUserId(String userId) {
+	public Teams findByGroupId(String groupId) {
 		// Criteria APIを利用するためにインスタンを生成
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 
 		// GroupIDをキーにDBから情報を取得するためのクエリ生成
-		CriteriaQuery<User> query = cb.createQuery(User.class);
-		Root<User> root = query.from(User.class);
-		query.where(cb.equal(root.get("userId"), userId));
+		CriteriaQuery<Teams> query = cb.createQuery(Teams.class);
+		Root<Teams> root = query.from(Teams.class);
+		query.where(cb.equal(root.get("groupId"), groupId));
 
 		// クエリの実行
-		User result = em
+		Teams result = em
 				.createQuery(query)
 				.getResultList().get(0);
 		return result;

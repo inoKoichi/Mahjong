@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class TeamsPlayDateService {
 	private TeamsPlayDateRepository groupPlayDateRepository;
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager em;
 
 	/**
 	 * 全user情報を取得する
@@ -57,8 +59,8 @@ public class TeamsPlayDateService {
 	 * @param userId
 	 * @return
 	 */
-	public Optional<TeamsPlayDate> findById(Long userId) {
-		return groupPlayDateRepository.findById(userId);
+	public Optional<TeamsPlayDate> findById(Long groupId) {
+		return groupPlayDateRepository.findById(groupId);
 	}
 
 	/**
@@ -67,20 +69,43 @@ public class TeamsPlayDateService {
 	 * @param playDate
 	 * @return
 	 */
-	public TeamsPlayDate findByGroupIdAndPlayDate(String groupId, String playDate) {
+	public List<TeamsPlayDate> findByGroupId(String groupId) {
 		// Criteria APIを利用するためにインスタンを生成
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
 
 		// GroupIDをキーにDBから情報を取得するためのクエリ生成
 		CriteriaQuery<TeamsPlayDate> query = cb.createQuery(TeamsPlayDate.class);
 		Root<TeamsPlayDate> root = query.from(TeamsPlayDate.class);
-//		query.where(cb.equal(root.get("playDate"), cb.currentDate()), cb.equal(root.get("groupId"), groupId));
-		query.where(cb.equal(root.get("groupId"), groupId));
+		Predicate authorNamePredicate = cb.equal(root.get("groupId"), groupId);
+		query.where(authorNamePredicate);
+//		query.where(cb.equal(root.get("groupId"), groupId));
+
+		System.out.println("TODO : query = " + query);
+		// クエリの実行
+		TypedQuery<TeamsPlayDate> resultList = em.createQuery(query);
+		return resultList.getResultList();
+	}
+
+	/**
+	 * プレイ日付とグループIDを元に取得
+	 * @param groupId
+	 * @param playDate
+	 * @return
+	 */
+	public TeamsPlayDate findByGroupIdAndPlayDate(String groupId, String playDate) {
+		// Criteria APIを利用するためにインスタンを生成
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		System.out.println("TODO : select : playDate = " + playDate);
+		// GroupIDをキーにDBから情報を取得するためのクエリ生成
+		CriteriaQuery<TeamsPlayDate> query = cb.createQuery(TeamsPlayDate.class);
+		Root<TeamsPlayDate> root = query.from(TeamsPlayDate.class);
+		query.where(cb.equal(root.get("playDate"), playDate));
 
 		// クエリの実行
-		TeamsPlayDate result = entityManager
+		TeamsPlayDate result = em
 				.createQuery(query)
-				.getResultList().get(0);
+				.getSingleResult();
 		return result;
 	}
 }

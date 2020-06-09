@@ -11,7 +11,7 @@ import com.app.marjan.entity.User;
 import lombok.Data;
 
 @Data
-public class TeamsListForm implements Serializable {
+public class UserForm implements Serializable {
 
 	public User userList = new User();
 

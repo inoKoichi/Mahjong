@@ -5,7 +5,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" rel="stylesheet"></link>
 <link href="css/navbar.css" th:href="@{/css/navbar.css}" rel="stylesheet"></link>
-<link href="css/navbar.css" th:href="@{/css/tableCustome.css}" rel="stylesheet"></link>
+<link href="css/navbar.css" th:href="@{/css/bubbleHoverEffect.css}" rel="stylesheet"></link>
+<link href="css/navbar.css" th:href="@{/css/buttonCustom.css}" rel="stylesheet"></link>
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+<script src="js/jquery-3.2.1.min.js" th:src="@{/js/bubbleHoverEffect.js}"></script>
 <script src="js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -18,6 +22,14 @@
 	height: 600px;
 }
 </style>
+<script>
+		   $('button').click(function() {
+			  $(this).toggleClass('clicked');
+			  $('button p').text(function(i, text) {
+			    return text === "Sent!" ? "Send" : "Sent!";
+			  });
+			});
+		</script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -39,18 +51,31 @@
 			</ul>
 		</div>
 	</nav>
+	<br />
+	<br />
 
-	<button type="button" class="btn btn-primary btn-lg">Primary</button>
-	<button type="button" class="btn btn-success btn-lg">Success</button>
-	<br/><br/>
-	<div class="container-fluid">
-<!-- 		<table class="table-hover table-responsive table-scroll table"> -->
-		<div class="table-responsive">
-			<!-- classの説明 -->
-			<!-- table-hover : カーソルをmouse-overさせたときのアニメーションを追加する  -->
-
-
-		</div>
+	<div class="container">
+		<a href="teamsRegistInput" class="btn-open-green">新規作成</a>
+	</div>
+	<div class="content">
+		<h1>M a r j o n g</h1>
+		<th:block th:each="Teams , list : ${teamsInfo}">
+			<div class="button_container">
+				<div class="button_su">
+					<span class="su_button_circle"> </span>
+					<form th:action="@{/playdatelist}" th:object="${teamsForm}" method="POST">
+						<button class="button_su_inner">
+							<span class="button_text_container">
+							Team<br>
+							<th:block th:text="${Teams.groupName}" />
+							<input type="hidden" name="groupId" th:value="${Teams.groupId}" />
+							</span>
+						</button>
+					</form>
+				</div>
+			</div>
+		</th:block>
+		<p class="credit">By Sammy Helali</p>
 	</div>
 </body>
 </html>
