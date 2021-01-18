@@ -32,7 +32,8 @@ public class TeamsService {
 	 * @return List<User>
 	 **/
 	public List<Teams> findAll() {
-		return groupListRepository.findAll();
+		List<Teams> teamlist = groupListRepository.findAll();
+		return teamlist;
 	}
 
 	/**

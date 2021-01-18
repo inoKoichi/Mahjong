@@ -1,90 +1,103 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" rel="stylesheet"></link>
-<link href="css/navbar.css" th:href="@{/css/navbar.css}" rel="stylesheet"></link>
-<link href="css/navbar.css" th:href="@{/css/tableCustome.css}" rel="stylesheet"></link>
-<link href="css/navbar.css" th:href="@{/css/buttonCustom.css}" rel="stylesheet"></link>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-<script src="js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+	<link href="css/mdb.min.css" th:href="@{/css/mdb.min.css}" rel="stylesheet"></link>
+	<link href="css/mdb.rtl.min.css" th:href="@{/css/mdb.rtl.min.css}" rel="stylesheet"></link>
+    <link href="css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" rel="stylesheet"></link>
+	<link href="css/buttonCustom.css}" th:href="@{/css/buttonCustom.css}" rel="stylesheet"></link>
 
-<title>TOP画面</title>
-<style>
-#map-canvas {
-	width: 600px;
-	height: 600px;
-}
-</style>
+	<script src="js/mdb.min.js" th:src="@{/js/mdb.min.js}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"></script>
+	<script src="js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+
+	<title>半荘情報画面</title>
+	<style>
+	#map-canvas {
+	    width: 600px;
+	    height: 600px;
+	}
+	.tableHader {
+	   font-size: 20px;
+	}
+
+	</style>
 </head>
 <body>
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">MCP</a>
-			</div>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="shopSearchResultList"> private</a></li>
-				<li><a href="shopSearch">DCP 麻雀部</a></li>
-			</ul>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="shopSearchResultList"> private</a></li>
-				<li><a href="halfRoundGameDetailPoint">test</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-			</ul>
-		</div>
+	<!-- As a heading -->
+	<nav class="navbar navbar-dark bg-primary">
+	  <div class="container-fluid">
+	    <span class="navbar-brand mb-0 h1">麻雀わいわい</span>
+	  </div>
 	</nav>
+	<!-- Tabs navs -->
+	<ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
+	  <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="ex2-tab-1" data-mdb-toggle="tab" href="#ex2-tabs-1" role="tab" aria-controls="ex2-tabs-1" aria-selected="ture">
+           合計
+        </a>
+	  </li>
+	  <li class="nav-item" role="presentation">
+	    <a class="nav-link" id="ex2-tab-2" data-mdb-toggle="tab" href="#ex2-tabs-2" role="tab" aria-controls="ex2-tabs-2" aria-selected="false">
+	       各半荘
+	    </a>
+	  </li>
+	  <li class="nav-item" role="presentation">
+        <a class="nav-link" id="ex2-tab-3" data-mdb-toggle="tab" href="#ex2-tabs-3" role="tab" aria-controls="ex2-tabs-3" aria-selected="false">
+           設定2
+        </a>
+	  </li>
+	</ul>
+     <br/>
 
-	<div class="container">
-		<a href="halfRoundGameDetailPointInput" class="btn-open-green">新規作成</a>
+	<!-- Tabs content -->
+	<div class="tab-content" id="ex2-content">
+	  <div class="tab-pane fade show active" id="ex2-tabs-1" role="tabpanel" aria-labelledby="ex2-tab-1">
+	    <div class="container-fluid">
+	        <div class="table-responsive">
+	            <table class="table table-bordered">
+	                <tr class="table-primary">
+	                    <th scope="col" class="tableHader">氏名</th>
+	                    <th scope="col" class="tableHader">順位</th>
+	                    <th scope="col" class="tableHader">金額</th>
+	                </tr>
+	                <th:block th:if="${playerPlayResultList != null}">
+	                    <tr th:each="resultList : ${playerPlayResultList}">
+                            <td th:text="${resultList.userName}"></td>
+                            <td th:text="${resultList.rank}"></td>
+                            <td th:text="${resultList.money}"></td>
+	                    </tr>
+	                </th:block>
+	            </table>
+	        </div>
+	    </div>
+	  </div>
+	  <div
+	    class="tab-pane fade"
+	    id="ex2-tabs-2"
+	    role="tabpanel"
+	    aria-labelledby="ex2-tab-2">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr class="table-primary">
+                        <th scope="col">半<br/>荘</th>
+                        <th scope="col">順<br/>位</th>
+                        <th scope="col">金<br/>額</th>
+                    </tr>
+    	       </table>
+            </div>
+	  </div>
+	  <div
+	    class="tab-pane fade"
+	    id="ex2-tabs-3"
+	    role="tabpanel"
+	    aria-labelledby="ex2-tab-3">
+	    Tab 3 content
+	  </div>
 	</div>
-	<br/><br/>
-	<div class="container-fluid">
-		<div class="table-responsive">
-			<table class="table table-striped table-bordered border-dark">
-				<tr class="success">
-					<th>半荘数</th>
-					<th colspan="3" th:each="ParticipantHeaderInfoDto : ${participantHeaderInfoList}"
-						th:text="*{ParticipantHeaderInfoDto.userName}"></th>
-				</tr>
-				<tr class="sub-header-maney">
-					<th>金額</th>
-					<td colspan="3" th:each="ParticipantHeaderInfoDto : ${participantHeaderInfoList}"
-						th:text="${ParticipantHeaderInfoDto.totalManey} + ' 円'"></td>
-				</tr>
-				<tr class="sub-header-point">
-					<th>得点</th>
-					<td colspan="3" th:each="ParticipantHeaderInfoDto : ${participantHeaderInfoList}"
-						th:text="*{ParticipantHeaderInfoDto.totalPoint}"></td>
-				</tr>
-				<tr class="success">
-					<td>No</td>
-					<th:block th:each="ParticipantHeaderInfoDto, participantDto : ${participantHeaderInfoList}">
-						<td>順位</td>
-						<td>点数</td>
-						<td>得点</td>
-					</th:block>
-				</tr>
-				<th:block th:if="${pointMap != null}">
-					<tr th:text="${testPoint.userId}"></tr>
-					<tr th:each="map : ${pointMap}">
-						<td th:text="${map.key}"></td>
-						<th:block th:each="PlayerPlayResultDto : ${map.value}">
-							<td th:text="${PlayerPlayResultDto.rank}"></td>
-							<td th:text="${PlayerPlayResultDto.point}"></td>
-							<td th:text="${PlayerPlayResultDto.score}"></td>
-						</th:block>
-					</tr>
-				</th:block>
-			</table>
-		</div>
-	</div>
+	<!-- Tabs content -->
 </body>
 </html>

@@ -6,6 +6,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * プレイ日の結果画面のFormクラス
+ * @author inokoichi
+ *
+ */
 @Getter
 @Setter
 @Data

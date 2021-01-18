@@ -6,6 +6,7 @@
 <link href="css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" rel="stylesheet"></link>
 <link href="css/navbar.css" th:href="@{/css/navbar.css}" rel="stylesheet"></link>
 <link href="css/navbar.css" th:href="@{/css/tableCustome.css}" rel="stylesheet"></link>
+<link href="css/navbar.css" th:href="@{/css/buttonCustom.css}" rel="stylesheet"></link>
 <script src="js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -40,6 +41,9 @@
 		</div>
 	</nav>
 
+    <div class="container">
+        <a href="playRuleSetting" class="btn-open-green">新規</a>
+    </div>
 	<br />
 	<br />
 	<div class="content">
@@ -48,7 +52,7 @@
 			<div class="button_container">
 				<div class="button_su">
 					<span class="su_button_circle"> </span>
-					<form action="#" th:action="@{/harfRoundGameKyokuList}" th:object="${teamsParamForm}" method="post">
+					<form action="#" th:action="@{/harfRoundGameTotal}" th:object="${teamsParamForm}" method="post">
 						<button class="button_su_inner">
 							<span class="button_text_container"> 日程<br>
 							<th:block th:text="${TeamsPlayDate.playDate}" />
