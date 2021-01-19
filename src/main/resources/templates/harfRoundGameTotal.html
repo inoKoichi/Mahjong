@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" rel="stylesheet"></link>
+<link href="css/navbar.css" th:href="@{/css/navbar.css}" rel="stylesheet"></link>
+<link href="css/navbar.css" th:href="@{/css/tableCustome.css}" rel="stylesheet"></link>
+<link href="css/navbar.css" th:href="@{/css/buttonCustom.css}" rel="stylesheet"></link>
+
+<script src="js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+
+<title>TOP画面</title>
+<style>
+#map-canvas {
+	width: 600px;
+	height: 600px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<a href="halfRoundGameDetailPointInput" class="btn-open-green">新規作成</a>
+	</div>
+	<br/><br/>
+	<div class="container-fluid">
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered border-dark">
+				<tr class="success">
+                    <th>半荘数</th>
+                    <th>順位</th>
+                    <th>金額</th>
+                    <th>合計点</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" rel="stylesheet"></link>
+<link href="css/setting.css" th:href="@{/css/setting.css}" rel="stylesheet"></link>
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+<script src="js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="js/setting.js" th:src="@{/js/setting.js}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<title>設定画面</title>
+</style>
+</head>
+<body id="particles-js"></body>
+<div class="foreground"></div>
+
+<div class="midground">
+  <div class="tuna"></div>
+</div>
+
+<div class="background">
+</div>
+<div class="animated bounceInDown">
+  <div class="container">
+    <span class="error animated tada" id="msg"></span>
+    <form name="form1" class="box" onsubmit="return checkStuff()">
+      <h4>Admin<span>Dashboard</span></h4>
+      <h5>Sign in to your account.</h5>
+        <input type="text" name="email" placeholder="Email" autocomplete="off">
+        <i class="typcn typcn-eye" id="eye"></i>
+        <input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
+        <label>
+          <input type="checkbox">
+          <span></span>
+          <small class="rmb">Remember me</small>
+        </label>
+        <a href="#" class="forgetpass">Forget Password?</a>
+        <input type="submit" value="Sign in" class="btn1">
+      </form>
+        <a href="#" class="dnthave">Don’t have an account? Sign up</a>
+  </div>
+       <div class="footer">
+      <span>Made with
+        <i class="fa fa-heart pulse"></i>
+        <a href="https://www.google.de/maps/place/Augsburger+Puppenkiste/@48.360357,10.903245,17z/data=!3m1!4b1!4m2!3m1!1s0x479e98006610a511:0x73ac6b9f80c4048f">
+        <a href="https://codepen.io/lordgamer2354">By Anees Khan</a>
+      </span>
+    </div>
+</div>
+</html>

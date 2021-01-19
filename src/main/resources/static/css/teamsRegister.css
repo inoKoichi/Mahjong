@@ -1,0 +1,520 @@
+body{
+    background: #1ab5eb;
+}
+.main-wrapper{
+    padding: 100px 10px 10px;
+    width: 100%;
+    height: 700px;
+    top:0;
+    left: 0;
+    margin:auto;
+    background: url('../img/netaMarjong.jpg') ;
+    transition: all .2s;
+    box-shadow: 0 0 20px #aaa;
+}
+a:not([href="http://creatorvisions.com"]){
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    display: block;
+    text-align: center;
+    margin: 10px auto 30px;
+    text-decoration: none;
+    position: relative;
+    box-shadow: 0 10px 10px -10px #000;
+}
+a span.s1{
+    position: absolute;
+    color: #fff;
+    font-weight: bolder;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #1ab5eb;
+    transform-origin: left;
+    transform:rotateY(0deg) translateX(0);
+    transition:all .3s;
+    z-index: 2;
+}
+a span.s2{
+    position: absolute;
+    color: #fff;
+    font-weight: bolder;
+    bottom:0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #005fa9;
+    transform-origin: right;
+    transform:rotateY(90deg) translateX(102px);
+    transition:all .3s;
+    z-index: 1;
+}
+a:hover span.s1{
+    transform:rotateY(90deg) translateX(-102px);
+    background: #005fa9;
+}
+a:hover span.s2{
+    transform:rotateY(0deg) translateX(0);
+    background: #1ab5eb;
+}
+a span.s3{
+    position: absolute;
+    color: #fff;
+    font-weight: bolder;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #1ab5eb;
+    transform-origin: top;
+    transform:rotateX(0deg) translateY(0);
+    transition:all .3s;
+    z-index: 2;
+}
+a span.s4{
+    position: absolute;
+    color: #fff;
+    font-weight: bolder;
+    bottom:0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #005fa9;
+    transform-origin: bottom;
+    transform:rotateX(90deg) translateY(22px);
+    transition:all .3s;
+    z-index: 1;
+}
+a:hover span.s3{
+    transform:rotateX(90deg) translateY(-22px);
+    background: #005fa9;
+}
+a:hover span.s4{
+    transform:rotateX(0deg) translateY(0);
+    background: #1ab5eb;
+}
+.veen{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0,0,0,.4);
+    z-index: 999;
+    top: -100%;
+    left: 0;
+}
+.veen .tada{
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: -200%;
+    right: 0%;
+    bottom: 0;
+    margin: auto;
+    height: 330px;
+    width: 25%;
+    background-image: url(http://ih0.redbubble.net/image.54684910.9510/flat,1000x1000,075,f.jpg);
+    transition:all .5s;
+    box-shadow: 0 0px 25px -10px #000;
+}
+.veen .tada:before, .veen .tada:after{
+    content: '';
+    z-index: -1;
+    position: absolute;
+    height: 5%;
+    width: 20%;
+    bottom: 20px;
+    left: 6px;
+    box-shadow: 0 22px 15px 0 #000;
+    transform: rotate(-5deg);
+    background: #777;
+}
+.veen .tada:after{
+    left: auto;
+    right: 6px;
+    transform: rotate(5deg);
+}
+.veen a.close-x{
+    position: absolute;
+    margin: 0;
+    right: -10px;
+    top: -10px;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    font-weight:bolder;
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(#ccc,#fff);
+    width: 40px;
+    border-radius: 50%;
+}
+.veen a.close-x:hover{
+    text-decoration: none;
+    background: linear-gradient(#fff,#ccc);
+}
+
+.veen a.log{
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    color: #fff;
+    font-weight:bolder;
+    text-align: center;
+    margin: 10px auto;
+    text-decoration: none;
+    background: #1ab5eb;
+}
+.veen p.head{
+    text-align: center;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: #fff;
+    background: #1ab5eb;
+    height: 50px;
+    line-height: 50px;
+}
+.veen .tada .uid, .veen .tada .pwd{
+    height: 60px;
+    position: relative;
+}
+.veen .tada .uid input, .veen .tada .pwd input{
+    display: block;
+    width: 80%;
+    height: 40px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    border: none;
+    background: transparent;
+    border-bottom: solid 2px #1ab5eb;
+    padding: 5px 90px 5px 10px;
+}
+.veen .tada input:focus{
+    outline: none;
+}
+.veen .tada label{
+    z-index: 1;
+    display:block;
+    text-align: left;
+    width: 80%;
+    margin: auto;
+    font-weight: bold;
+    position: absolute;
+    left: 20px;
+    margin: auto;
+    right: 0;
+    margin-top: 11px;
+    transition: all .1s;
+    color: #1ab5eb;
+    opacity: .5;
+}
+.veen .tada .remw{
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-around;
+    width: 60%;
+    margin: auto;
+}
+.veen .tada p.rem{
+    margin: 10px;
+    height: 35px;
+    line-height: 35px;
+}
+.veen .dum {
+    margin: 10px;
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    border-radius: 50px;
+    height: 35px;
+    box-shadow: inset 0px 1px 3px rgba(0,0,0,0.5);
+}
+.veen .tada .dum input{
+    display: inline-block;
+    width: 80px;
+    height: 26px;
+    background: #333;
+    position: relative;
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+}
+.veen .tada .dum:after {
+    content: 'NO';
+    color: #ff0c0c;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    bottom: 0;
+    margin:auto;
+    z-index: 0;
+    font: 12px/26px Arial, sans-serif;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px rgba(255,255,255,.15);
+}
+.veen .tada .dum:before {
+    content: 'YES';
+    color: #1ec303;
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    bottom: 0;
+    margin:auto;
+    z-index: 0;
+    font: 12px/26px Arial, sans-serif;
+    font-weight: bold;
+}
+.veen .tada .dum label {
+    display: block;
+    width: 38px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 1;
+    background: linear-gradient(#ddd,50%,#fff);
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0px 5px 10px -6px #000;
+    margin: 0;
+    opacity: 1;
+}
+.veen .tada .dum input[type="checkbox"] {
+    display: none;
+}
+.veen .tada .dum input[type="checkbox"]:checked + label {
+    left: 38px;
+}
+.veen-2{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(26,181,235,.4);
+    z-index: 999;
+    top: -100%;
+    left: 0;
+}
+.veen-2 .tada{
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: -200%;
+    right: 0%;
+    bottom: 0;
+    margin: auto;
+    height: 450px;
+    width: 25%;
+    background-image: url(http://ih0.redbubble.net/image.54684910.9510/flat,1000x1000,075,f.jpg);
+    transition:all .5s;
+    box-shadow: 0 0px 25px -10px #000;
+}
+.veen-2 .tada:before, .veen .tada:after{
+    content: '';
+    z-index: -1;
+    position: absolute;
+    height: 5%;
+    width: 20%;
+    bottom: 20px;
+    left: 6px;
+    box-shadow: 0 22px 15px 0 #000;
+    transform: rotate(-5deg);
+    background: #777;
+}
+.veen-2 .tada:after{
+    left: auto;
+    right: 6px;
+    transform: rotate(5deg);
+}
+.veen-2 a.close-x-2{
+    position: absolute;
+    margin: 0;
+    right: -10px;
+    top: -10px;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    font-weight:bolder;
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(#ccc,#fff);
+    width: 40px;
+    border-radius: 50%;
+}
+.veen-2 a.log{
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    color: #fff;
+    font-weight:bolder;
+    text-align: center;
+    margin: 10px auto;
+    text-decoration: none;
+    background: #1ab5eb;
+}
+.veen-2 p.head{
+    text-align: center;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: #fff;
+    background: #1ab5eb;
+    height: 50px;
+    line-height: 50px;
+}
+.veen-2 .tada .uid, .veen-2 .tada .mail, .veen-2 .tada .name,.veen-2 .tada .pwd{
+    height: 50px;
+}
+.veen-2 .tada .uid input, .veen-2 .tada .pwd input,.veen-2 .tada .name input,.veen-2 .tada .mail input{
+    display: block;
+    width: 80%;
+    height: 40px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    border: none;
+    background: transparent;
+    border-bottom: solid 2px #1ab5eb;
+    padding: 5px 90px 5px 10px;
+}
+.veen-2 .tada input:focus{
+    outline: none;
+}
+.veen-2 .tada label{
+    z-index: 1;
+    display:block;
+    text-align: left;
+    width: 80%;
+    margin: auto;
+    font-weight: bold;
+    opacity: .5;
+    position: absolute;
+    left: 20px;
+    margin: auto;
+    right: 0;
+    margin-top: 11px;
+    transition: all .1s;
+    color: #1ab5eb;
+}
+.veen-2 .tada .genw{
+    width: 100%;
+    margin: 20px 0;
+}
+.veen-2 .tada p.gen{
+    margin: 0 10px;
+    height: 35px;
+    line-height: 35px;
+}
+.veen-2 .dum {
+    margin: 0 10px;
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    border-radius: 50px;
+    height: 35px;
+    box-shadow: inset 0px 1px 3px rgba(0,0,0,0.5);
+}
+.veen-2 .in-1{
+    background: url(female.jpg) center no-repeat;
+}
+.veen-2 .in-2{
+    background: url(male.jpg) center no-repeat;
+}
+.veen-2 .tada .dum input{
+    display: inline-block;
+    width: 80px;
+    height: 26px;
+    background: #333;
+    position: relative;
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+}
+.veen-2 .tada .dum label[for="r1"]{
+    display: block;
+    width: 38px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 1;
+    background: linear-gradient(#ddd,50%,#fff);
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0px 5px 10px -6px #000;
+    margin: 0;
+    opacity: 1;
+}
+.veen-2 .tada .dum label[for="r2"] {
+    display: block;
+    width: 38px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 1;
+    background: linear-gradient(#ddd,50%,#fff);
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0px 5px 10px -6px #000;
+    margin: 0;
+    opacity: 1;
+}
+.veen-2 .tada .dum input[type="radio"] {
+    display: none;
+}
+.veen-2 .tada .dum input[type="radio"]:checked + label {
+    left: 38px;
+}
+.okati{
+    margin: 50px auto;
+}
+.check{
+    height: 50px;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    color: #ff0000;
+    font-size: 18px;
+    opacity: 0;
+    transition:all .5s;
+    text-align: center;
+    background: rgba(255,255,255,0.8);
+}
+.check span{
+    margin: 20px;
+    line-height: 50px;
+}
+.check-2{
+    opacity: 1;
+}
+.show-pass{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    font-size: 0;
+    bottom: 0;
+    height: 40px;
+    width: 40px;
+    top: 0;
+    background: #0af url(http://creatorvisions.com/quick-view-w.png) center no-repeat;
+    z-index: 9;
+    cursor: pointer;
+    box-shadow: 0 2px 6px -2px rgba(0,0,0,.5);
+}
+.show-pass.go{
+    box-shadow: inset 0 0 6px rgba(0,0,0,.5);
+}
+.pwd{
+    margin-right: 35px;
+    margin-left: 5px;
+}
+.trans {
+    font-size: 10px;
+    margin-top: -4px !important;
+    }
