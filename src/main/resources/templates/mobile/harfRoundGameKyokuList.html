@@ -69,9 +69,9 @@
                     </tr>
                     <th:block th:if="${playerPlayResultList != null}">
                         <tr th:each="resultList : ${playerPlayResultList}">
-                            <td th:text="${resultList.userName}"></td>
-                            <td th:text="${resultList.rank}  + ' 位'" align="center"></td>
-                            <td th:text="${resultList.money}  + ' 円'" align="right"></td>
+                            <td th:text="${resultList.userName}" class="font20"></td>
+                            <td th:text="${resultList.rank}  + ' 位'" align="center" class="font20"></td>
+                            <td th:text="${resultList.money}  + ' 円'" align="right" class="font20"></td>
                         </tr>
                     </th:block>
                 </table>
@@ -95,7 +95,7 @@
                               <th:block th:if="${resultList.first}">
                                   <td class="tableTdCell" rowspan="8" th:text="${map.key}"></td>
                               </th:block>
-                              <td class="tableTdCell" rowspan="2" th:text="${PlayerPlayResult.userName}"></td>
+                              <td class="tableTdCell" rowspan="2" th:text="${PlayerPlayResult.userName} + aaa"></td>
                               <td class="tableTdCell" rowspan="2" th:text="${PlayerPlayResult.rank}"></td>
                               <td class="tableTdCell" bgcolor="#F4E7D0">点数</td>
                               <td class="tableTdCell" colspan="3" th:text="${PlayerPlayResult.point}  + ' 点'"></td>
@@ -119,52 +119,68 @@
 		        <form class="form-horizontal">
 		            <h3 class="h3Left">順位点</h3>
 		            <div class="row">
-						<div class="col-2">
+						<div class="col-2 grid-center">
 						    <span class="text-center" style="vertical-align: middle;">1位</span>
 						</div>
 						<div class="col-4">
-						    <input type="text" class="form-control" placeholder="20" disabled>
+						    <input type="text" class="form-control" value="20" disabled>
 						</div>
-                        <div class="col-2">
+                        <div class="col-2 grid-center">
                             <span class="text-center">2位</span>
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" placeholder="10" disabled>
+                            <input type="text" class="form-control" value="10" disabled>
                         </div>
 					</div>
                     <div class="row">
-                        <div class="col-2">
-                            <span class="text-center">3位</span>
+                        <div class="col-2 grid-center ">
+                            <span class="text-right">3位</span>
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" placeholder="-10" disabled>
+                            <input type="text" class="form-control" value="-10" disabled>
                         </div>
-                        <div class="col-2">
+                        <div class="col-2 grid-center">
                             <span class="text-center">4位</span>
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" placeholder="-20" disabled>
+                            <input type="text" class="form-control" value="-20" disabled>
                         </div>
                     </div>
                     <br/>
                     <h3 class="h3Left">飛び賞</h3>
                     <div class="row">
                         <div class="col-4">
-                            <input type="text" class="form-control" placeholder="10" disabled>
+                            <input type="text" class="form-control" value="10" disabled>
                         </div>
                     </div>
                     <br/>
                     <h3 class="h3Left">レート</h3>
                     <div class="row">
                         <div class="col-7">
-                            <input type="text" class="form-control" placeholder="1000点 100円" disabled>
+                            <input type="text" class="form-control" value="1000点 100円" disabled>
                         </div>
                     </div>
                     <br/>
                     <h3 class="h3Left">おか</h3>
                     <div class="row">
                         <div class="col-7">
-                           <input type="text" class="form-control" placeholder="25000点返し" disabled>
+                           <input type="text" class="form-control" value="25000点返し" disabled>
+                        </div>
+                    </div>
+                    <br/>
+                    <h3 class="h3Left">役満ボーナス</h3>
+                    <div class="row">
+                        <div class="col-2 grid-center">
+                            <span class="text-center">ﾂﾓ</span>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" value="10" disabled>
+                        </div>
+                        <div class="col-2 grid-center">
+                            <span class="text-center ">ﾛﾝ</span>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" value="20" disabled>
                         </div>
                     </div>
                     <br/><br/><br/>

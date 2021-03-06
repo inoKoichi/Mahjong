@@ -21,7 +21,27 @@
     .text-left{
       text-align: left;
     }
+    .grid-center{
+      display: grid;
+      place-items: center;
+    }
     .h3Left{
        text-align: left;
        background: #F4E7D0;
+    }
+    .font20{
+       font-size: 20px;
+    }
+    .alignItemsCenter{
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+    }
+    .alignItemsEnd{
+       display: flex;
+       justify-content: space-between;
+       align-items: flex-end;
+    }
+    div.center{
+       margin:  0 auto;
     }

@@ -1,16 +1,22 @@
 package com.app.marjan.controller;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.app.marjan.constant.HarfRoundConstant;
+import com.app.marjan.entity.PlayUser;
 import com.app.marjan.entity.PlayerResultPoint;
 import com.app.marjan.entity.User;
-import com.app.marjan.form.PlayerResultPointForm;
+import com.app.marjan.form.harfRoundGameResultForm;
+import com.app.marjan.service.PlayUserService;
 import com.app.marjan.service.PlayerResultPointService;
 import com.app.marjan.service.UserService;
 
@@ -19,6 +25,8 @@ public class HalfRoundGameDetailPointController {
 
     @Autowired
     public PlayerResultPointService playerResultPointService;
+    @Autowired
+    public PlayUserService playUserService;
     @Autowired
     public UserService userService;
 
@@ -48,11 +56,14 @@ public class HalfRoundGameDetailPointController {
     public String playerResultPointInput(Model model
                                         , @ModelAttribute("groupId") String groupId
                                         , @ModelAttribute("playDate") String playDate) {
-        model.addAttribute("pointForm", new PlayerResultPointForm());
         model.addAttribute("groupId", groupId);
         model.addAttribute("playDate", playDate);
+        List<PlayUser> playUserList = playUserService.findByPlayDate(playDate);
+        model.addAttribute("playUserList", playUserList);
+        Map<Integer, String> windMap = HarfRoundConstant.windMap;
+        model.addAttribute("windMap", windMap);
 
-        return "halfRoundGameDetailPoint";
+        return "mobile/halfRoundGameDetailPoint";
     }
 
     /**
@@ -63,32 +74,20 @@ public class HalfRoundGameDetailPointController {
      * @param playDate プレイ日
      * @return
      */
-    @RequestMapping("/createPointInpitDisp")
+    @RequestMapping(value="/halfRoundGameResult", method = RequestMethod.POST)
     public String createPointInpitDisp(Model model
-                                    , @ModelAttribute("pointForm") PlayerResultPointForm pointForm
-                                    , @ModelAttribute("groupId") String groupId
+                                    , @ModelAttribute("resultForm") harfRoundGameResultForm resultForm
+                                     , @ModelAttribute("groupId") String groupId
                                     , @ModelAttribute("playDate") String playDate) {
 
         // プレイヤー1を登録
-        PlayerResultPoint playerResultPoint1 = setPointResult(pointForm, groupId, playDate, pointForm.point1, pointForm.userId1, pointForm.seatWind1);
-        playerResultPointService.save(playerResultPoint1);
-
-        // プレイヤー2を登録
-        PlayerResultPoint playerResultPoint2 = setPointResult(pointForm, groupId, playDate, pointForm.point2, pointForm.userId2, pointForm.seatWind2);
-        playerResultPointService.save(playerResultPoint2);
-
-        // プレイヤー3を登録
-        PlayerResultPoint playerResultPoint3 = setPointResult(pointForm, groupId, playDate, pointForm.point3, pointForm.userId3, pointForm.seatWind3);
-        playerResultPointService.save(playerResultPoint3);
-
-        // プレイヤー4を登録
-        PlayerResultPoint playerResultPoint4 = setPointResult(pointForm, groupId, playDate, pointForm.point4, pointForm.userId4, pointForm.seatWind4);
-        playerResultPointService.save(playerResultPoint4);
+//        PlayerResultPoint playerResultPoint1 = setPointResult(resultForm, groupId, playDate, resultForm.point1, resultForm.userId1, resultForm.seatWind1);
+//        playerResultPointService.save(playerResultPoint1);
 
         model.addAttribute("groupId", groupId);
         model.addAttribute("playDate", playDate);
 
-        return "harfRoundGameKyokuList";
+        return "mobile/halfRoundGameDetailPoint";
     }
 
     /**
@@ -101,7 +100,7 @@ public class HalfRoundGameDetailPointController {
      * @param seatWind 自風
      * @return
      */
-    public PlayerResultPoint setPointResult(PlayerResultPointForm pointForm
+    public PlayerResultPoint setPointResult(harfRoundGameResultForm resultForm
                                             , String groupId
                                             , String playDate
                                             , int point
@@ -121,7 +120,7 @@ public class HalfRoundGameDetailPointController {
         playerResultPoint.userName = this.getUserName(userId);
 
         // 得点と金額
-        playerResultPoint.rank = getRank(pointForm, point, seatWind);
+        playerResultPoint.rank = getRank(resultForm, point, seatWind);
         playerResultPoint.point = point;
         playerResultPoint.score = getScore(playerResultPoint.point, playerResultPoint.rank);
         playerResultPoint.tipMoney = tipRate;
@@ -205,16 +204,24 @@ public class HalfRoundGameDetailPointController {
     }
 
     /**
+     * プレイ登録されているUser情報を取得
+     */
+    public String[] getPlayUserList() {
+
+		return null;
+    }
+
+    /**
      * 順位情報を取得する
      * @param pointForm form情報
      * @param point 得点
      * @return 順位
      */
-    private int getRank(PlayerResultPointForm pointForm, int point, String seatWind) {
+    private int getRank(harfRoundGameResultForm resultForm, int point, String seatWind) {
         // 処理
         int rank = 1;
-        int resultPoint[] = { pointForm.point1, pointForm.point2, pointForm.point3, pointForm.point4 };
-        String resultSeatWind[] = { pointForm.seatWind1, pointForm.seatWind2, pointForm.seatWind3, pointForm.seatWind4 };
+        int resultPoint[] = { resultForm.playerPoint1, resultForm.playerPoint2, resultForm.playerPoint3, resultForm.playerPoint4 };
+        String resultSeatWind[] = { resultForm.playerWind1, resultForm.playerWind2, resultForm.playerWind3, resultForm.playerWind4 };
 
         // ランク付け計算
         for(int i=0; i<resultPoint.length;i++) {

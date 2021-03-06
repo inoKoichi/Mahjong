@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link href="css/mdb.min.css" th:href="@{/css/mdb.min.css}" rel="stylesheet"></link>
+<link href="css/mdb.rtl.min.css" th:href="@{/css/mdb.rtl.min.css}" rel="stylesheet"></link>
+<link href="css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" rel="stylesheet"></link>
+<link href="css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet"></link>
+<link href="css/buttonCustom.css" th:href="@{/css/buttonCustom.css}" rel="stylesheet"></link>
+<link href="css/common.css}" th:href="@{/css/common.css}" rel="stylesheet"></link>
+<link href="css/dropdown.css" th:href="@{/css/dropdown.css}" rel="stylesheet"></link>
+<link href="css/mobile/swiper.css" th:href="@{/css/mobile/swiper.css}" rel="stylesheet"></link>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/mobile/swiper.js" th:src="@{/js/mobile/swiper.js}"></script>
+<script src="js/dropdown.js" th:href="@{/js/dropdown.js}"></script>
+
+
+<title>TOP画面</title>
+<style>
+#map-canvas {
+	width: 600px;
+	height: 1200px;
+}
+
+.box {
+	position: relative;
+}
+
+.box span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+/* 全体のスタイル */
+.swiper-wrapper {
+	width: 100%;
+	height: 400px;
+}
+/* 全スライド共通スタイル */
+.swiper-slide {
+	width: 100%;
+	height: 100%;
+}
+/* 4の倍数＋1枚目のスライドのスタイル（1枚目、5枚目…） */
+.swiper-slide:nth-child(4n+1) {
+
+}
+/* 4の倍数＋2枚目のスライドのスタイル（2枚目、6枚目…） */
+.swiper-slide:nth-child(4n+2) {
+	background-color: #E13239;
+}
+/* 4の倍数＋3枚目のスライドのスタイル（3枚目、7枚目…） */
+.swiper-slide:nth-child(4n+3) {
+	background-color: #1F1762;
+}
+/* 4の倍数＋4枚目のスライドのスタイル（4枚目、8枚目…） */
+.swiper-slide:nth-child(4n+4) {
+	background-color: #BEDAE5;
+}
+</style>
+</head>
+<body>
+	<!-- As a heading -->
+	<nav class="navbar navbar-dark bg-primary">
+		<div class="container-fluid">
+			<span class="navbar-brand mb-0 h1">麻雀わいわい</span>
+		</div>
+	</nav>
+
+	<!--  -->
+	<br />
+	<!-- 半荘登録ボタン -->
+	<div class="container">
+		<div class="row">
+			<div class="col-3 col-md-4">
+				点数<br />合計
+			</div>
+			<div class="col-9 col-md-8">
+				<div class="form-outline">
+					<input type="text" id="formControlLg" class="form-control form-control-lg" value="1000" readonly />
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<!-- Swiper START -->
+	<form class="form-horizontal" method="post" action="/halfRoundGameResult" th:object="${resultForm}">
+		<div class="swiper-container">
+			<!-- メイン表示部分 -->
+			<div class="swiper-wrapper">
+				<!-- 各スライド -->
+				<div class="swiper-slide">
+					<h3 class="h3Left">結果入力</h3>
+					<div class="container" style="width: 85%;">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<label class="input-group-text">名前</label>
+							</div>
+							<select class="custom-select" id="playerName1" name="playerName1">
+								<option th:each="PlayUser : ${playUserList}" th:value="${PlayUser.userId}" th:text="${PlayUser.userName}"></option>
+							</select>
+						</div>
+						<div class="input-group mb-3" style="width: 60%;">
+							<div class="input-group-prepend">
+								<span class="input-group-text">点数</span>
+							</div>
+							<input type="number" name="playerPoint2" class="form-control text-right" value="100">
+							<div class="alignItemsCenter">&nbsp;00点</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<label class="input-group-text">風</label>
+									</div>
+									<select class="custom-select" id="playerWind1" name="playerWind1">
+										<option th:each="map : ${windMap}" th:value="${map.key}" th:text="${map.value}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="col">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<label class="input-group-text" for="yakumanCount1">役満</label>
+									</div>
+									<select class="custom-select" id="yakumanCount1" name="yakumanCount1">
+										<option selected value="0">0</option>
+										<option value="-1">-10</option>
+										<option value="1">11</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<label class="input-group-text" for="playerTobiFromName1">飛ばされた人</label>
+							</div>
+							<select class="custom-select" id="playerTobiFromName1" name="playerTobiFromName1">
+								<option selected value="0"></option>
+								<option th:each="PlayUser : ${playUserList}" th:value="${PlayUser.userId}" th:text="${PlayUser.userName}"></option>
+							</select>
+						</div>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">メモ</span>
+							</div>
+							<textarea class="form-control" id="playerMemo1" aria-label="With textarea" name="playerMemo1"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">Slide 2</div>
+				<div class="swiper-slide">Slide 3</div>
+				<div class="swiper-slide">Slide 4</div>
+			</div>
+			<!-- 前ページボタン -->
+			<div class="swiper-button-prev"></div>
+			<!-- 次ページボタン -->
+			<div class="swiper-button-next"></div>
+			<!-- ページネーション -->
+			<div class="swiper-pagination"></div>
+			<!-- スクロールバー -->
+			<div class="swiper-scrollbar"></div>
+		</div>
+		<input type="submit" class="btn btn-info btn-lg " value="登録" />
+	</form>
+	<!-- Swiper END -->
+</body>
+<script>
+var mySwiper = new Swiper('.swiper-container', {
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+    }
+});
+</script>
+</html>

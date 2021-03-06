@@ -10,65 +10,41 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class  PlayerPlayResultDto {
+public class PlayerPlayResultDto {
 
-	/**
-	 * 順位
-	 */
+	/** 順位 */
 	public Integer rank = 0;
 
-	/**
-	 * 点数
-	 */
+	/** 点数 */
 	public Integer score;
 
-	/**
-	 * 得点
-	 */
+	/** 得点 */
 	public Integer point = 0;
 
-	/**
-	 * ユーザーID
-	 */
+	/** ユーザーID */
 	public String userId;
 
-	/**
-	 * ユーザー名
-	 */
+	/** ユーザー名 */
 	public String userName;
 
-	/**
-	 * グループID
-	 */
+	/** グループID */
 	public String groupId;
 
-	/**
-	 * プレイ日
-	 */
+	/** プレイ日 */
 	public String playDate;
 
-	/**
-	 * 席風
-	 */
+	/** 席風 */
 	public String seatWind;
 
-	/**
-	 * 箱下フラグ
-	 */
+	/** 箱下フラグ */
 	public Boolean hakoFlag;
 
-	/**
-	 *
-	 */
+	/**  箱下プレイヤー */
 	public Integer hakoFromPlayer = 0;
 
-	/**
-	 *
-	 */
+	/** 役満フラグ */
 	public String yakumanFlag;
 
-	/**
-	 * 金額
-	 */
+	/** 金額 */
 	public Integer money = 0;
 }
