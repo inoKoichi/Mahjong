@@ -1,7 +1,6 @@
 package com.app.marjan.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -51,9 +50,8 @@ public class HarfRoundGameKyokuListController {
 		model.addAttribute("playDate", playDate);
 
 		// user情報を取得
-//		List<User> userList = userService.findAll();
-		// test data用
-		List<User> userList = getTestDataMembersInfo();
+		List<User> userList = userService.findAll();
+
 		// user情報が無かったらExceptionを発生
 		if (userList == null || userList.size() == 0) {
 			// エラー画面に遷移
@@ -61,18 +59,15 @@ public class HarfRoundGameKyokuListController {
 		model.addAttribute("userList", userList);
 
 		// グループ実施日を取得
-//		TeamsPlayDate groupPlayDate = groupPlayDateService.findByGroupIdAndPlayDate(groupId, playDate);
-		// test data用
-		TeamsPlayDate groupPlayDate = getTestDataTeamsPlayDateInfo(groupId, playDate);
+		TeamsPlayDate groupPlayDate = groupPlayDateService.findByGroupIdAndPlayDate(groupId, playDate);
+
 		// groupPlayDate情報が無かったらExceptionを発生
 		if (groupPlayDate == null) {
 			// エラー画面に遷移
 		}
 
 		// グループ実施日のゲーム情報を取得
-//		List<PlayerResultPoint>  pointList = playerResultPointService.findByGroupIdAndPlayDate(groupId, groupPlayDate.playDate);
-		// test data用
-		List<PlayerResultPoint> pointList = getTestDataParticipantHeaderInfoDtoInfo(groupPlayDate.playDate);
+		List<PlayerResultPoint>  pointList = playerResultPointService.findByGroupIdAndPlayDate(groupId, groupPlayDate.playDate);
 
 		// 各半荘の合計を取得
 		List<PlayerPlayResultDto> playerPlayResultList = getTotalScoreList(pointList, userList);
@@ -82,9 +77,8 @@ public class HarfRoundGameKyokuListController {
 		model.addAttribute("hantyanTotalResultMap", hantyanTotalResultMap);
 
 		// 画面情報を設定
-//		List<ParticipantHeaderInfoDto> participantHeaderInfoList = getParticipantHeaderInfoList(pointList, userList);
-//		Map<Integer, List> pointMap = sortUserList(pointList);
-//		model.addAttribute("pointMap", pointMap);
+		Map<Integer, List> pointMap = sortUserList(pointList);
+		model.addAttribute("pointMap", pointMap);
 
 		// 点数レコードを取得できない場合パラメータは設定しない
 		if(!pointList.isEmpty()) {
@@ -294,165 +288,6 @@ public class HarfRoundGameKyokuListController {
 		dto.hakoFromPlayer = point.hakoFromPlayer;
 		dto.yakumanFlag = point.yakumanFlag;
 		return dto;
-	}
-
-	/**
-	 * dummy Data
-	 *  参加者達の情報を取得
-	 */
-	private List<User> getTestDataMembersInfo() {
-		List<User> userlist = new ArrayList<User>();
-
-		userlist.add(createTestMemberInfo("001","猪野","dcp"));
-		userlist.add(createTestMemberInfo("002","望","dcp"));
-		userlist.add(createTestMemberInfo("003","間宮","dcp"));
-		userlist.add(createTestMemberInfo("004","波","dcp"));
-		userlist.add(createTestMemberInfo("005","工藤","dcp"));
-
-		return userlist;
-	}
-
-	/**
-	 * dummy data
-	 * 参加者の情報を取得
-	 */
-	private User createTestMemberInfo(String userId, String userName, String groupId1) {
-		User user = new User();
-		user.userId = userId;
-		user.userName = userName;
-		user.groupId1 = groupId1;
-
-		return user;
-	}
-
-	/**
-	 * dummy Data
-	 *  チーム実施日の情報を取得
-	 */
-	private TeamsPlayDate getTestDataTeamsPlayDateInfo(String groupId, String playDate) {
-		if (groupId.equals("001") && playDate.equals("2020/12/01")) {
-			return createTestTeamPlayDateInfo("001","2020/12/01");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/02")) {
-			return createTestTeamPlayDateInfo("001","2020/12/02");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/03")) {
-			return createTestTeamPlayDateInfo("001","2020/12/03");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/04")) {
-			return createTestTeamPlayDateInfo("001","2020/12/04");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/21")) {
-			return createTestTeamPlayDateInfo("001","2020/12/21");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/31")) {
-			return createTestTeamPlayDateInfo("001","2020/12/31");
-		} else if (groupId.equals("001") && playDate.equals("2021/12/04")) {
-			return createTestTeamPlayDateInfo("001","2021/01/04");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/01")) {
-			return createTestTeamPlayDateInfo("002","2020/12/01");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/02")) {
-			return createTestTeamPlayDateInfo("002","2020/12/02");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/03")) {
-			return createTestTeamPlayDateInfo("002","2020/12/03");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/04")) {
-			return createTestTeamPlayDateInfo("002","2020/12/04");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/21")) {
-			return createTestTeamPlayDateInfo("002","2020/12/21");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/31")) {
-			return createTestTeamPlayDateInfo("002","2020/12/31");
-		} else if (groupId.equals("002") && playDate.equals("2021/01/04")) {
-			return createTestTeamPlayDateInfo("002","2021/01/04");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/01")) {
-			return createTestTeamPlayDateInfo("003","2020/12/01");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/02")) {
-			return createTestTeamPlayDateInfo("003","2020/12/02");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/03")) {
-			return createTestTeamPlayDateInfo("003","2020/12/03");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/04")) {
-			return createTestTeamPlayDateInfo("003","2020/12/04");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/21")) {
-			return createTestTeamPlayDateInfo("003","2020/12/21");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/31")) {
-			return createTestTeamPlayDateInfo("003","2020/12/31");
-		} else if (groupId.equals("003") && playDate.equals("2021/01/04")) {
-			return createTestTeamPlayDateInfo("003","2021/01/04");
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * dummy data
-	 * チームの実施日を取得
-	 */
-	private TeamsPlayDate createTestTeamPlayDateInfo(String groupId, String playDate) {
-		TeamsPlayDate teamsPlayDate = new TeamsPlayDate();
-		teamsPlayDate.groupId = groupId;
-		teamsPlayDate. playDate = playDate;
-		teamsPlayDate.registrationDate = new Date();
-
-		return teamsPlayDate;
-	}
-
-	/**
-	 * dummy Data
-	 *  参加者達の情報を取得
-	 */
-	private List<PlayerResultPoint> getTestDataParticipantHeaderInfoDtoInfo(String playDate) {
-		List<PlayerResultPoint> playerResultPointList = new ArrayList<PlayerResultPoint>();
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("001","猪野",playDate,1,"東",40000,50,5000,1));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("002","望",playDate,1,"南",30000,15,1500,2));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("003","間宮",playDate,1,"西",20000,-15,-1500,3));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("004","波",playDate,1,"北",10000,-25,-2500,4));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("001","猪野",playDate,2,"西",80000,65,3000,1));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("002","望",playDate,2,"東",10000,-5,2000,2));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("003","間宮",playDate,2,"南",6000,-34,-2000,3));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("004","波",playDate,2,"北",4000,-41,-3000,4));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("001","猪野",playDate,3,"西",5000,-40,3000,3));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("002","望",playDate,3,"北",30000,15,2000,2));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("003","間宮",playDate,3,"東",61000,56,-2000,1));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("004","波",playDate,3,"南",4000,-41,-3000,4));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("001","猪野",playDate,4,"西",40000,50,3000,1));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("002","望",playDate,4,"北",30000,20,2000,2));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("003","間宮",playDate,4,"南",20000,-20,-2000,3));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("004","波",playDate,4,"東",10000,-50,-3000,4));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("001","猪野",playDate,5,"東",0,12,3000,4));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("002","望",playDate,5,"北", 4000,-20,2000,3));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("003","間宮",playDate,5,"南",6000,-10,-2000,2));
-		playerResultPointList.add(createTestParticipantHeaderInfoDtoInfo("004","波",playDate,5,"西",90000,80,-1000,1));
-		return playerResultPointList;
-	}
-
-	/**
-	 * dummy data
-	 * 参加者の情報を取得
-	 * @param userId
-	 * @param userName
-	 * @param playDate
-	 * @param hanso
-	 * @param point
-	 * @param money
-	 * @param rank
-	 * @return
-	 */
-	private PlayerResultPoint createTestParticipantHeaderInfoDtoInfo(
-			String userId
-			, String userName
-			, String playDate
-			, Integer hanso
-			, String seatWind
-			, Integer point
-			, Integer score
-			, Integer money
-			, Integer rank) {
-		PlayerResultPoint playerResultPoint = new PlayerResultPoint();
-		playerResultPoint.userId = userId;
-		playerResultPoint.userName = userName;
-		playerResultPoint.playDate = playDate;
-		playerResultPoint.hanso = hanso;
-		playerResultPoint.seatWind = seatWind;
-		playerResultPoint.point = point;
-		playerResultPoint.score = score;
-		playerResultPoint.money = money;
-		playerResultPoint.rank = rank;
-
-		return playerResultPoint;
 	}
 
 }

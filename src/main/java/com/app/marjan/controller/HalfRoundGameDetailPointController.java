@@ -2,7 +2,6 @@ package com.app.marjan.controller;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,9 +58,12 @@ public class HalfRoundGameDetailPointController {
         model.addAttribute("groupId", groupId);
         model.addAttribute("playDate", playDate);
         List<PlayUser> playUserList = playUserService.findByPlayDate(playDate);
+        // プレイヤー情報を設定
         model.addAttribute("playUserList", playUserList);
-        Map<Integer, String> windMap = HarfRoundConstant.windMap;
-        model.addAttribute("windMap", windMap);
+        // 風情報を設定
+        model.addAttribute("windMap", HarfRoundConstant.getWindList());
+        // 風情報を設定
+        model.addAttribute("yakumanPointList", HarfRoundConstant.getYakumanPointList());
 
         return "mobile/halfRoundGameDetailPoint";
     }

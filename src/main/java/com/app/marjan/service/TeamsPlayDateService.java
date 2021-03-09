@@ -1,5 +1,6 @@
 package com.app.marjan.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,18 +95,86 @@ public class TeamsPlayDateService {
 	 */
 	public TeamsPlayDate findByGroupIdAndPlayDate(String groupId, String playDate) {
 		// Criteria APIを利用するためにインスタンを生成
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-
-		System.out.println("TODO : select : playDate = " + playDate);
-		// GroupIDをキーにDBから情報を取得するためのクエリ生成
-		CriteriaQuery<TeamsPlayDate> query = cb.createQuery(TeamsPlayDate.class);
-		Root<TeamsPlayDate> root = query.from(TeamsPlayDate.class);
-		query.where(cb.equal(root.get("playDate"), playDate));
-
-		// クエリの実行
-		TeamsPlayDate result = em
-				.createQuery(query)
-				.getSingleResult();
-		return result;
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//
+//		System.out.println("TODO : select : playDate = " + playDate);
+//		// GroupIDをキーにDBから情報を取得するためのクエリ生成
+//		CriteriaQuery<TeamsPlayDate> query = cb.createQuery(TeamsPlayDate.class);
+//		Root<TeamsPlayDate> root = query.from(TeamsPlayDate.class);
+//		query.where(cb.equal(root.get("playDate"), playDate));
+//
+//		// クエリの実行
+//		TeamsPlayDate result = em
+//				.createQuery(query)
+//				.getSingleResult();
+//		return result;
+		// test Data
+		return getTestDataTeamsPlayDateInfo(groupId, playDate);
 	}
+
+	/**
+	 * dummy Data
+	 *  チーム実施日の情報を取得
+	 */
+	private TeamsPlayDate getTestDataTeamsPlayDateInfo(String groupId, String playDate) {
+		if (groupId.equals("001") && playDate.equals("2020/12/01")) {
+			return createTestTeamPlayDateInfo("001","2020/12/01");
+		} else if (groupId.equals("001") && playDate.equals("2020/12/02")) {
+			return createTestTeamPlayDateInfo("001","2020/12/02");
+		} else if (groupId.equals("001") && playDate.equals("2020/12/03")) {
+			return createTestTeamPlayDateInfo("001","2020/12/03");
+		} else if (groupId.equals("001") && playDate.equals("2020/12/04")) {
+			return createTestTeamPlayDateInfo("001","2020/12/04");
+		} else if (groupId.equals("001") && playDate.equals("2020/12/21")) {
+			return createTestTeamPlayDateInfo("001","2020/12/21");
+		} else if (groupId.equals("001") && playDate.equals("2020/12/31")) {
+			return createTestTeamPlayDateInfo("001","2020/12/31");
+		} else if (groupId.equals("001") && playDate.equals("2021/12/04")) {
+			return createTestTeamPlayDateInfo("001","2021/01/04");
+		} else if (groupId.equals("002") && playDate.equals("2020/12/01")) {
+			return createTestTeamPlayDateInfo("002","2020/12/01");
+		} else if (groupId.equals("002") && playDate.equals("2020/12/02")) {
+			return createTestTeamPlayDateInfo("002","2020/12/02");
+		} else if (groupId.equals("002") && playDate.equals("2020/12/03")) {
+			return createTestTeamPlayDateInfo("002","2020/12/03");
+		} else if (groupId.equals("002") && playDate.equals("2020/12/04")) {
+			return createTestTeamPlayDateInfo("002","2020/12/04");
+		} else if (groupId.equals("002") && playDate.equals("2020/12/21")) {
+			return createTestTeamPlayDateInfo("002","2020/12/21");
+		} else if (groupId.equals("002") && playDate.equals("2020/12/31")) {
+			return createTestTeamPlayDateInfo("002","2020/12/31");
+		} else if (groupId.equals("002") && playDate.equals("2021/01/04")) {
+			return createTestTeamPlayDateInfo("002","2021/01/04");
+		} else if (groupId.equals("003") && playDate.equals("2020/12/01")) {
+			return createTestTeamPlayDateInfo("003","2020/12/01");
+		} else if (groupId.equals("003") && playDate.equals("2020/12/02")) {
+			return createTestTeamPlayDateInfo("003","2020/12/02");
+		} else if (groupId.equals("003") && playDate.equals("2020/12/03")) {
+			return createTestTeamPlayDateInfo("003","2020/12/03");
+		} else if (groupId.equals("003") && playDate.equals("2020/12/04")) {
+			return createTestTeamPlayDateInfo("003","2020/12/04");
+		} else if (groupId.equals("003") && playDate.equals("2020/12/21")) {
+			return createTestTeamPlayDateInfo("003","2020/12/21");
+		} else if (groupId.equals("003") && playDate.equals("2020/12/31")) {
+			return createTestTeamPlayDateInfo("003","2020/12/31");
+		} else if (groupId.equals("003") && playDate.equals("2021/01/04")) {
+			return createTestTeamPlayDateInfo("003","2021/01/04");
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * dummy data
+	 * チームの実施日を取得
+	 */
+	private TeamsPlayDate createTestTeamPlayDateInfo(String groupId, String playDate) {
+		TeamsPlayDate teamsPlayDate = new TeamsPlayDate();
+		teamsPlayDate.groupId = groupId;
+		teamsPlayDate. playDate = playDate;
+		teamsPlayDate.registrationDate = new Date();
+
+		return teamsPlayDate;
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.app.marjan.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,9 @@ public class UserService {
 	 * @return List<User>
 	 **/
 	public List<User> findAll() {
-		return userListRepository.findAll();
+//		return userListRepository.findAll();
+		// test data
+		return getTestDataMembersInfo();
 	}
 
 	/**
@@ -81,4 +84,34 @@ public class UserService {
 				.getResultList().get(0);
 		return result;
 	}
+
+	/**
+	 * dummy Data
+	 *  参加者達の情報を取得
+	 */
+	private List<User> getTestDataMembersInfo() {
+		List<User> userlist = new ArrayList<User>();
+
+		userlist.add(createTestMemberInfo("001","猪野","dcp"));
+		userlist.add(createTestMemberInfo("002","望","dcp"));
+		userlist.add(createTestMemberInfo("003","間宮","dcp"));
+		userlist.add(createTestMemberInfo("004","波","dcp"));
+		userlist.add(createTestMemberInfo("005","工藤","dcp"));
+
+		return userlist;
+	}
+
+	/**
+	 * dummy data
+	 * 参加者の情報を取得
+	 */
+	private User createTestMemberInfo(String userId, String userName, String groupId1) {
+		User user = new User();
+		user.userId = userId;
+		user.userName = userName;
+		user.groupId1 = groupId1;
+
+		return user;
+	}
+
 }

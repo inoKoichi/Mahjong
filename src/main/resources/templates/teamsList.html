@@ -21,6 +21,10 @@
 	width: 600px;
 	height: 600px;
 }
+
+h1 {
+	color: #000000;
+}
 </style>
 <script>
 		   $('button').click(function() {
@@ -32,31 +36,14 @@
 		</script>
 </head>
 <body>
-	<nav class="navbar navbar-inverse">
+	<!-- As a heading -->
+	<nav class="navbar navbar-dark bg-primary">
 		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">MCP</a>
-			</div>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="shopSearchResultList"> private</a></li>
-				<li><a href="shopSearch">DCP 麻雀部</a></li>
-			</ul>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="shopSearchResultList"> private</a></li>
-				<li><a href="halfRoundGameDetailPoint">test</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-			</ul>
+			<span class="navbar-brand mb-0 h1">麻雀わいわい</span>
 		</div>
 	</nav>
-	<br />
-	<br />
-
 	<div class="container">
-        <a href="teamsRegistInput" class="btn-open-green">新規作成</a>
-        <a href="teamsRegistInput" class="btn-open-green">新規作成</a>
+		<a href="teamsRegistInput" class="btn-open-green">新規作成</a>
 	</div>
 	<div class="content">
 		<h1>M a r j o n g</h1>
@@ -66,10 +53,9 @@
 					<span class="su_button_circle"> </span>
 					<form th:action="@{/playdatelist}" th:object="${teamsForm}" method="POST">
 						<button class="button_su_inner">
-							<span class="button_text_container">
-							Team<br>
-							<th:block th:text="${Teams.groupName}" />
-							<input type="hidden" name="groupId" th:value="${Teams.groupId}" />
+							<span class="button_text_container"> Team<br>
+						         <th:block th:text="${Teams.groupName}" />
+							     <input type="hidden" name="groupId" th:value="${Teams.groupId}" />
 							</span>
 						</button>
 					</form>

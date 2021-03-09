@@ -50,15 +50,12 @@
 }
 /* 4の倍数＋2枚目のスライドのスタイル（2枚目、6枚目…） */
 .swiper-slide:nth-child(4n+2) {
-	background-color: #E13239;
 }
 /* 4の倍数＋3枚目のスライドのスタイル（3枚目、7枚目…） */
 .swiper-slide:nth-child(4n+3) {
-	background-color: #1F1762;
 }
 /* 4の倍数＋4枚目のスライドのスタイル（4枚目、8枚目…） */
 .swiper-slide:nth-child(4n+4) {
-	background-color: #BEDAE5;
 }
 </style>
 </head>
@@ -107,7 +104,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">点数</span>
 							</div>
-							<input type="number" name="playerPoint2" class="form-control text-right" value="100">
+							<input type="number" name="playerPoint1" class="form-control text-right" placeholder="0" value="">
 							<div class="alignItemsCenter">&nbsp;00点</div>
 						</div>
 						<div class="row">
@@ -117,7 +114,7 @@
 										<label class="input-group-text">風</label>
 									</div>
 									<select class="custom-select" id="playerWind1" name="playerWind1">
-										<option th:each="map : ${windMap}" th:value="${map.key}" th:text="${map.value}"></option>
+										<option th:each="map : ${windMap}" th:value="${map.key}" th:text="${map.value}" th:selected="${map.key == 1}"></option>
 									</select>
 								</div>
 							</div>
@@ -127,9 +124,7 @@
 										<label class="input-group-text" for="yakumanCount1">役満</label>
 									</div>
 									<select class="custom-select" id="yakumanCount1" name="yakumanCount1">
-										<option selected value="0">0</option>
-										<option value="-1">-10</option>
-										<option value="1">11</option>
+                                        <option th:each="yakumanPoint : ${yakumanPointList}" th:value="${yakumanPoint}" th:text="${yakumanPoint}" th:selected="${yakumanPoint == 0}"></option>
 									</select>
 								</div>
 							</div>
@@ -151,9 +146,177 @@
 						</div>
 					</div>
 				</div>
-				<div class="swiper-slide">Slide 2</div>
-				<div class="swiper-slide">Slide 3</div>
-				<div class="swiper-slide">Slide 4</div>
+				<div class="swiper-slide">
+                    <h3 class="h3Left">結果入力</h3>
+                    <div class="container" style="width: 85%;">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">名前</label>
+                            </div>
+                            <select class="custom-select" id="playerName2" name="playerName2">
+                                <option th:each="PlayUser : ${playUserList}" th:value="${PlayUser.userId}" th:text="${PlayUser.userName}"></option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3" style="width: 60%;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">点数</span>
+                            </div>
+                            <input type="number" name="playerPoint2" class="form-control text-right" placeholder="0" value="">
+                            <div class="alignItemsCenter">&nbsp;00点</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">風</label>
+                                    </div>
+                                    <select class="custom-select" id="playerWind2" name="playerWind2">
+                                        <option th:each="map : ${windMap}" th:value="${map.key}" th:text="${map.value}" th:selected="${map.key == 2}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="yakumanCount2">役満</label>
+                                    </div>
+                                    <select class="custom-select" id="yakumanCount2" name="yakumanCount2">
+                                        <option th:each="yakumanPoint : ${yakumanPointList}" th:value="${yakumanPoint}" th:text="${yakumanPoint}" th:selected="${yakumanPoint == 0}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="playerTobiFromName2">飛ばされた人</label>
+                            </div>
+                            <select class="custom-select" id="playerTobiFromName2" name="playerTobiFromName2">
+                                <option selected value="0"></option>
+                                <option th:each="PlayUser : ${playUserList}" th:value="${PlayUser.userId}" th:text="${PlayUser.userName}"></option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">メモ</span>
+                            </div>
+                            <textarea class="form-control" id="playerMemo2" aria-label="With textarea" name="playerMemo2"></textarea>
+                        </div>
+                    </div>
+                </div>
+				<div class="swiper-slide">
+                    <h3 class="h3Left">結果入力</h3>
+                    <div class="container" style="width: 85%;">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">名前</label>
+                            </div>
+                            <select class="custom-select" id="playerName3" name="playerName3">
+                                <option th:each="PlayUser : ${playUserList}" th:value="${PlayUser.userId}" th:text="${PlayUser.userName}"></option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3" style="width: 60%;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">点数</span>
+                            </div>
+                            <input type="number" name="playerPoint3" class="form-control text-right" placeholder="0" value="">
+                            <div class="alignItemsCenter">&nbsp;00点</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">風</label>
+                                    </div>
+                                    <select class="custom-select" id="playerWind3" name="playerWind3">
+                                        <option th:each="map : ${windMap}" th:value="${map.key}" th:text="${map.value}" th:selected="${map.key == 3}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="yakumanCount3">役満</label>
+                                    </div>
+                                    <select class="custom-select" id="yakumanCount3" name="yakumanCount3">
+                                        <option th:each="yakumanPoint : ${yakumanPointList}" th:value="${yakumanPoint}" th:text="${yakumanPoint}" th:selected="${yakumanPoint == 0}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="playerTobiFromName1">飛ばされた人</label>
+                            </div>
+                            <select class="custom-select" id="playerTobiFromName3" name="playerTobiFromName3">
+                                <option selected value="0"></option>
+                                <option th:each="PlayUser : ${playUserList}" th:value="${PlayUser.userId}" th:text="${PlayUser.userName}"></option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">メモ</span>
+                            </div>
+                            <textarea class="form-control" id="playerMemo3" aria-label="With textarea" name="playerMemo3"></textarea>
+                        </div>
+                    </div>
+                </div>
+				<div class="swiper-slide">
+                    <h3 class="h3Left">結果入力</h3>
+                    <div class="container" style="width: 85%;">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">名前</label>
+                            </div>
+                            <select class="custom-select" id="playerName4" name="playerName4">
+                                <option th:each="PlayUser : ${playUserList}" th:value="${PlayUser.userId}" th:text="${PlayUser.userName}"></option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3" style="width: 60%;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">点数</span>
+                            </div>
+                            <input type="number" name="playerPoint4" class="form-control text-right" placeholder="0" value="">
+                            <div class="alignItemsCenter">&nbsp;00点</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">風</label>
+                                    </div>
+                                    <select class="custom-select" id="playerWind4" name="playerWind4">
+                                        <option th:each="map : ${windMap}" th:value="${map.key}" th:text="${map.value}" th:selected="${map.key == 4}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="yakumanCount4">役満</label>
+                                    </div>
+                                    <select class="custom-select" id="yakumanCount4" name="yakumanCount4">
+                                        <option th:each="yakumanPoint : ${yakumanPointList}" th:value="${yakumanPoint}" th:text="${yakumanPoint}" th:selected="${yakumanPoint == 0}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="playerTobiFromName1">飛ばされた人</label>
+                            </div>
+                            <select class="custom-select" id="playerTobiFromName4" name="playerTobiFromName4">
+                                <option selected value="0"></option>
+                                <option th:each="PlayUser : ${playUserList}" th:value="${PlayUser.userId}" th:text="${PlayUser.userName}"></option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">メモ</span>
+                            </div>
+                            <textarea class="form-control" id="playerMemo4" aria-label="With textarea" name="playerMemo4"></textarea>
+                        </div>
+                    </div>
+				</div>
 			</div>
 			<!-- 前ページボタン -->
 			<div class="swiper-button-prev"></div>
