@@ -11,12 +11,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.util.StringUtils;
 
+import com.app.marjan.common.CommonUtility;
+import com.app.marjan.constant.CommonConstant;
 import com.app.marjan.dto.ParticipantHeaderInfoDto;
+import com.app.marjan.dto.PlayRuleSettingDto;
+import com.app.marjan.dto.PlayUserDto;
 import com.app.marjan.dto.PlayerPlayResultDto;
+import com.app.marjan.entity.PlayUser;
 import com.app.marjan.entity.PlayerResultPoint;
 import com.app.marjan.entity.TeamsPlayDate;
 import com.app.marjan.entity.User;
+import com.app.marjan.form.PlayRuleSettingForm;
+import com.app.marjan.service.PlayRuleSettingService;
+import com.app.marjan.service.PlayUserService;
 import com.app.marjan.service.PlayerResultPointService;
 import com.app.marjan.service.TeamsPlayDateService;
 import com.app.marjan.service.TeamsService;
@@ -30,24 +39,50 @@ import com.app.marjan.service.UserService;
 @Controller
 public class HarfRoundGameKyokuListController {
 
+	/** Serviceクラスの定義 */
 	@Autowired
 	public UserService userService;
 	@Autowired
 	public TeamsService groupService;
 	@Autowired
-	public TeamsPlayDateService groupPlayDateService;
+	public TeamsPlayDateService teamsPlayDateService;
 	@Autowired
-	public PlayerResultPointService playerResultPointService;
+	public PlayUserService playUSerService;
+	@Autowired
+ 	public PlayerResultPointService playerResultPointService;
+	@Autowired
+	public PlayRuleSettingService playRuleSettingService;
+
+	/** 変数定義 */
+	List<PlayerResultPoint>  pointList;
+	TeamsPlayDate teamsPlayDate ;
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/harfRoundGameTotal")
-	public String harfRoundGameKyokuList(@ModelAttribute("groupId") String groupId,
-										 @ModelAttribute("playDate") String playDate,
-										 Model model) {
+	public String harfRoundGameKyokuList(Model model,
+										 @ModelAttribute("playRuleSettingForm") PlayRuleSettingForm playRuleSettingForm,
+										 @ModelAttribute("groupId") String groupId,
+										 @ModelAttribute("playDate") String playDate) {
 
-		// modelに設定
-		model.addAttribute("groupId", "test");
-		model.addAttribute("playDate", playDate);
+		// 遷移元画面の判定
+		boolean dispFlag = StringUtils.isEmpty(playDate)? true : false;
+		// 新規半荘を開始
+		if (dispFlag) {
+			// dtoに設定
+			PlayRuleSettingDto playRuleSettingDto = this.setPlayRuleSettingDto(playRuleSettingForm, groupId, playDate);
+			// playDateを新規登録
+			teamsPlayDateService.save(playRuleSettingDto);
+			// PlayUserを新規登録
+			PlayUserDto playUserDto = this.setPlayUserList(playRuleSettingForm, playRuleSettingDto);
+			playUSerService.save(playUserDto);
+			// playRuleSettingを新規登録
+			// 各種パラメーターの値を初期化
+			playRuleSettingService.save(playRuleSettingDto);
+
+		} else {
+			// 既に開催された半荘情報を取得
+		}
+
 
 		// user情報を取得
 		List<User> userList = userService.findAll();
@@ -59,15 +94,17 @@ public class HarfRoundGameKyokuListController {
 		model.addAttribute("userList", userList);
 
 		// グループ実施日を取得
-		TeamsPlayDate groupPlayDate = groupPlayDateService.findByGroupIdAndPlayDate(groupId, playDate);
-
-		// groupPlayDate情報が無かったらExceptionを発生
-		if (groupPlayDate == null) {
-			// エラー画面に遷移
+		if (StringUtils.isEmpty(playDate)) {
+			teamsPlayDate = teamsPlayDateService.findByGroupIdAndPlayDate(groupId, playDate);
+			// groupPlayDate情報が無かったらExceptionを発生
+			if (teamsPlayDate == null) {
+				// エラー画面に遷移
+			}
+			// グループ実施日のゲーム情報を取得
+//			pointList = playerResultPointService.findByGroupIdAndPlayDate(groupId, groupPlayDate.playDate);
+		} else {
+			pointList = playerResultPointService.findByGroupIdAndPlayDate(groupId, playDate);
 		}
-
-		// グループ実施日のゲーム情報を取得
-		List<PlayerResultPoint>  pointList = playerResultPointService.findByGroupIdAndPlayDate(groupId, groupPlayDate.playDate);
 
 		// 各半荘の合計を取得
 		List<PlayerPlayResultDto> playerPlayResultList = getTotalScoreList(pointList, userList);
@@ -273,7 +310,7 @@ public class HarfRoundGameKyokuListController {
 	}
 
 	/**
-	 * entity情報をsetする
+	 * PlayerPlayResulのentity情報をsetする
 	 * @param point
 	 * @return
 	 */
@@ -288,6 +325,81 @@ public class HarfRoundGameKyokuListController {
 		dto.hakoFromPlayer = point.hakoFromPlayer;
 		dto.yakumanFlag = point.yakumanFlag;
 		return dto;
+	}
+
+	/**
+	 * Form情報をdtoにsetする
+	 * @param playRuleSettingForm
+	 * @param groupId
+	 * @param playDate
+	 * @return
+	 */
+	private PlayRuleSettingDto setPlayRuleSettingDto(PlayRuleSettingForm playRuleSettingForm
+											  ,String groupId
+											  ,String playDate) {
+		PlayRuleSettingDto dto = new PlayRuleSettingDto();
+		String unixTime = String.valueOf(CommonUtility.getCurrentDateUnixTimeUTC());
+		dto.settingNo = unixTime;
+		dto.groupId = groupId;
+		dto.playDate = playDate;
+		dto.playGroupNo = playRuleSettingForm.groupId + CommonConstant.HIHUN + unixTime;
+		dto.rankReward1 = Integer.valueOf(playRuleSettingForm.rankReward1);
+		dto.rankReward2 = Integer.valueOf(playRuleSettingForm.rankReward2);
+		dto.rankReward3 = Integer.valueOf(playRuleSettingForm.rankReward3);
+		dto.rankReward4 = Integer.valueOf(playRuleSettingForm.rankReward4);
+		dto.tobiReward = Integer.valueOf(playRuleSettingForm.tobiReward);
+		dto.rateMoney = Integer.valueOf(playRuleSettingForm.rateMoney);
+		dto.tipMoney = Integer.valueOf(playRuleSettingForm.tipMoney);
+		dto.returnPoint = Integer.valueOf(playRuleSettingForm.returnPoint);
+		dto.yakumanRon = Integer.valueOf(playRuleSettingForm.yakumanRon);
+		dto.yakumanTsumo = Integer.valueOf(playRuleSettingForm.yakumanTsumo);
+		return dto;
+	}
+
+	/**
+	 * Form情報をdtoにsetする
+	 * @param playRuleSettingForm
+	 * @param groupId
+	 * @param playDate
+	 * @return
+	 */
+	private PlayUserDto setPlayUserList(PlayRuleSettingForm playRuleSettingForm
+										, PlayRuleSettingDto playRuleSettingDto) {
+		PlayUserDto playUserDto = new PlayUserDto();
+		List<PlayUser> playUserList = new ArrayList<PlayUser>();
+
+		// 入力情報 1人目
+		PlayUser playUser1 = new PlayUser();
+		playUser1.groupId = playRuleSettingDto.groupId;
+		playUser1.playDate = playRuleSettingDto.playDate;
+		playUser1.groupId = playRuleSettingForm.playerUserId1;
+		playUserList.add(playUser1);
+
+		// 入力情報 2人目
+		PlayUser playUser2 = new PlayUser();
+		playUser2.groupId = playRuleSettingDto.groupId;
+		playUser2.playDate = playRuleSettingDto.playDate;
+		playUser2.groupId = playRuleSettingForm.playerUserId2;
+		playUserList.add(playUser2);
+
+		// 入力情報 3人目
+		PlayUser playUser3 = new PlayUser();
+		playUser3.groupId = playRuleSettingDto.groupId;
+		playUser3.playDate = playRuleSettingDto.playDate;
+		playUser3.groupId = playRuleSettingForm.playerUserId3;
+		playUserList.add(playUser3);
+
+		// 入力情報 4人目
+		PlayUser playUser4 = new PlayUser();
+		playUser4.groupId = playRuleSettingDto.groupId;
+		playUser4.playDate = playRuleSettingDto.playDate;
+		playUser4.groupId = playRuleSettingForm.playerUserId4;
+		playUserList.add(playUser4);
+
+		// User情報をListに設定
+		playUserDto.setPlayUserList(playUserList);
+
+		return playUserDto;
 	}
 
 }

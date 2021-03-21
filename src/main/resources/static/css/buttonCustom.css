@@ -1,106 +1,115 @@
 /* ボタン：ストライプがら（水色） */
-	.btn-flat-stripe {
-	  position: relative;
-	  display: inline-block;
-	  font-weight: bold;
-	  padding: 0.5em 1em;
-	  text-decoration: none;
-	  border-left: solid 4px #668ad8;
-	  border-right: solid 4px #668ad8;
-	  color: #668ad8;
-	  text-shadow: 0 0 5px white;
-	  padding: 0.5em 1em;
-	  background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
-	  transition: .4s;
-	  font-size: 2em;
-	}
+.btn-flat-stripe {
+	position: relative;
+	display: inline-block;
+	font-weight: bold;
+	padding: 0.5em 1em;
+	text-decoration: none;
+	border-left: solid 4px #668ad8;
+	border-right: solid 4px #668ad8;
+	color: #668ad8;
+	text-shadow: 0 0 5px white;
+	padding: 0.5em 1em;
+	background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px, #e9f4ff 3px,
+		#e9f4ff 7px);
+	transition: .4s;
+	font-size: 2em;
+}
 
-	.btn-flat-stripe:hover {
-	  background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 5px,#e9f4ff 5px, #e9f4ff 9px);
-	}
+.btn-flat-stripe:hover {
+	background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 5px, #e9f4ff 5px,
+		#e9f4ff 9px);
+}
 
 /* ボタン：ステッチ（水色） */
 .btn-stitch {
-  display: inline-block;
-  padding: 0.5em 1em;
-  text-decoration: none;
-  background: #668ad8;
-  color: #FFF;
-  border-radius: 4px;
-  box-shadow: 0px 0px 0px 5px #668ad8;
-  border: dashed 1px #FFF;
-  font-size: 2em;
+	display: inline-block;
+	padding: 0.5em 1em;
+	text-decoration: none;
+	background: #e51ecf;
+	color: #FFF;
+	border-radius: 0px;
+	box-shadow: 0px 0px 0px 2px #e51ecf;
+	font-size: 1.5em;
 }
 
 .btn-stitch:hover {
-  border: dotted 1px #FFF;
+	border: dotted 1px #FFF;
 }
 
 /* ボタン：浮き出し文字（水色） */
 .btn-square-raised {
-  display: inline-block;
-  padding: 0.5em 1em;
-  text-decoration: none;
-  background: #668ad8;/*ボタン色*/
-  color: #668ad8;/*ボタン色と同じに*/
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-  border-bottom: solid 3px #627295;
-  border-radius: 3px;/*角の丸み*/
-  font-weight: bold;
-  text-shadow: -1px -1px rgba(255, 255, 255, 0.44), 1px 1px rgba(0, 0, 0, 0.38);
+	display: inline-block;
+	padding: 0.5em 1em;
+	text-decoration: none;
+	background: #668ad8; /*ボタン色*/
+	color: #668ad8; /*ボタン色と同じに*/
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+	border-bottom: solid 3px #627295;
+	border-radius: 3px; /*角の丸み*/
+	font-weight: bold;
+	text-shadow: -1px -1px rgba(255, 255, 255, 0.44), 1px 1px
+		rgba(0, 0, 0, 0.38);
 }
 
 .btn-square-raised:active {
-  /*ボタンを押したとき*/
-  -webkit-transform: translateY(4px);
-  transform: translateY(4px);
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
-  border-bottom: none;
+	/*ボタンを押したとき*/
+	-webkit-transform: translateY(4px);
+	transform: translateY(4px);
+	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+	border-bottom: none;
 }
 
 /* ボタン：斜めに開いて背景色変更（緑） */
 .container {
-  font-family: "Yu Gothic", YuGothic, Verdana, 'Hiragino Kaku Gothic ProN','Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, sans-serif;
-  text-align: center;
-  padding-top: 10px;
+	font-family: "Yu Gothic", YuGothic, Verdana, 'Hiragino Kaku Gothic ProN',
+		'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo,
+		sans-serif;
+	text-align: center;
+	padding-top: 10px;
 }
+
 .btn-open-green {
-  display: inline-block;
-  width: 180px;
-  height:50px;
-  text-align: center;
-  background-color: #9ec34b;
-  font-size: 16px;
-  line-height: 52px;
-  color: #FFF;
-  text-decoration: none;
-  font-weight: bold;
-  border: 2px solid #9ec34b;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
+	display: inline-block;
+	width: 180px;
+	height: 50px;
+	text-align: center;
+	background-color: #9ec34b;
+	font-size: 16px;
+	line-height: 52px;
+	color: #FFF;
+	text-decoration: none;
+	font-weight: bold;
+	border: 2px solid #9ec34b;
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
 }
-.btn-open-green:after{
-  width: 100%;
-  height: 0;
-  content:"";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background : #FFF;
-  opacity: 0;
-  transform: translateX(-50%) translateY(-50%) rotate(45deg);
-  transition: .2s;
-  z-index: -1;
+
+.btn-open-green:after {
+	width: 100%;
+	height: 0;
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: #FFF;
+	opacity: 0;
+	transform: translateX(-50%) translateY(-50%) rotate(45deg);
+	transition: .2s;
+	z-index: -1;
 }
-.btn-open-green:hover{
-  color: #9ec34b;
+
+.btn-open-green:hover {
+	color: #9ec34b;
 }
-.btn-open-green:hover:after{
-  height: 240%;
-  opacity: 1;
+
+.btn-open-green:hover:after {
+	height: 240%;
+	opacity: 1;
 }
-.btn-open-green:active:after{
-  height: 340%;
-  opacity: 1;
+
+.btn-open-green:active:after {
+	height: 340%;
+	opacity: 1;
 }

@@ -92,11 +92,11 @@ public class UserService {
 	private List<User> getTestDataMembersInfo() {
 		List<User> userlist = new ArrayList<User>();
 
-		userlist.add(createTestMemberInfo("001","猪野","dcp"));
-		userlist.add(createTestMemberInfo("002","望","dcp"));
-		userlist.add(createTestMemberInfo("003","間宮","dcp"));
-		userlist.add(createTestMemberInfo("004","波","dcp"));
-		userlist.add(createTestMemberInfo("005","工藤","dcp"));
+		userlist.add(createTestMemberInfo("001","猪野","narimasu"));
+		userlist.add(createTestMemberInfo("002","望","narimasu"));
+		userlist.add(createTestMemberInfo("003","間宮","narimasu"));
+		userlist.add(createTestMemberInfo("004","波","narimasu"));
+		userlist.add(createTestMemberInfo("005","工藤","narimasu"));
 
 		return userlist;
 	}

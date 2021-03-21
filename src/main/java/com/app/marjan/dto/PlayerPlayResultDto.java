@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PlayerPlayResultDto {
+public class PlayerPlayResultDto extends PlayRuleSettingDto {
 
 	/** 順位 */
 	public Integer rank = 0;

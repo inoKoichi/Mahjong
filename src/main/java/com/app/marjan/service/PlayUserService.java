@@ -1,7 +1,9 @@
 package com.app.marjan.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -16,8 +18,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.marjan.common.CommonUtility;
+import com.app.marjan.constant.CommonConstant;
+import com.app.marjan.dto.PlayUserDto;
 import com.app.marjan.entity.PlayUser;
+import com.app.marjan.entity.User;
 import com.app.marjan.repository.PlayUserRepository;
+import com.app.marjan.repository.UserRepository;
 
 @Service
 @Transactional
@@ -25,6 +32,9 @@ public class PlayUserService {
 
 	@Autowired
 	private PlayUserRepository playUserRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 
     @PersistenceContext
     private EntityManager em;
@@ -45,6 +55,24 @@ public class PlayUserService {
 	 */
 	public PlayUser updata(PlayUser playUser) {
 		return playUserRepository.save(playUser);
+	}
+
+	/**
+	 * user情報を更新する
+	 * @param userId
+	 * @return User
+	 */
+	public void save(PlayUserDto playUserDto) {
+		// 全User情報をMapで取得
+		Map<String, PlayUser> userMap = setPlayUserMap(playUserDto);
+		// 登録するUser情報を取得
+		List<PlayUser> playUserList = playUserDto.getPlayUserList();
+
+		// playUser情報を登録
+		playUserList.forEach( entity -> {
+			PlayUser playUser = userMap.get(entity.userId);
+			playUserRepository.save(playUser);
+		});
 	}
 
 	/**
@@ -118,6 +146,28 @@ public class PlayUserService {
 				.createQuery(query)
 				.getSingleResult();
 		return result;
+	}
+
+	private Map<String, PlayUser> setPlayUserMap(PlayUserDto playUserDto){
+		// User情報を全データ取得
+		List<User> userList= userRepository.findAll();
+		Map<String, PlayUser> playUserMap = new HashMap<String, PlayUser>();
+		// PlayUser情報を設定
+		for (User entity : userList) {
+			PlayUser playUser = new PlayUser();
+			playUser.playGroupNo = playUserDto.playGroupNo;
+			playUser.groupId = playUserDto.groupId;
+			playUser.playDate = playUserDto.playDate;
+			playUser.userId = entity.userId;
+			playUser.userName = entity.userName;
+			playUser.registrationDate = CommonUtility.convertStringToDate(CommonUtility.getCurrentDate());
+			playUser.updateDate = CommonUtility.convertStringToDate(CommonUtility.getCurrentDate());
+			playUser.deleteDate = null;
+			playUser.deleteFlag = CommonConstant.ZERO;
+			playUserMap.put(playUser.userId, playUser);
+		}
+		return playUserMap;
+
 	}
 
 	/**

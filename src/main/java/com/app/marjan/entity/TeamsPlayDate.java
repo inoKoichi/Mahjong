@@ -21,6 +21,12 @@ public class TeamsPlayDate {
 	@Column(name = "play_date")
 	public String playDate;
 
+	@Column(name = "player_group_no")
+	public String playGroupNo;
+
+	@Column(name = "setting_no")
+	public String settingNo;
+
 	@Column(name = "registration_date")
 	public Date registrationDate;
 
@@ -31,6 +37,6 @@ public class TeamsPlayDate {
 	public Date deleteDate;
 
 	@Column(name = "delete_flag")
-	public Boolean deleteFlag;
+	public Integer deleteFlag;
 
 }

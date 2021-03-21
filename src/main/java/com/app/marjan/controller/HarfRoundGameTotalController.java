@@ -1,7 +1,6 @@
 package com.app.marjan.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.app.marjan.dto.ParticipantHeaderInfoDto;
 import com.app.marjan.dto.PlayerPlayResultDto;
 import com.app.marjan.entity.PlayerResultPoint;
-import com.app.marjan.entity.Teams;
 import com.app.marjan.entity.TeamsPlayDate;
 import com.app.marjan.entity.User;
 import com.app.marjan.service.PlayerResultPointService;
@@ -39,20 +37,10 @@ public class HarfRoundGameTotalController {
 	public TeamsPlayDateService groupPlayDateService;
 	@Autowired
 	public PlayerResultPointService playerResultPointService;
-	// ****************************
-	// test Data
-	User user1 ;
-	User user2 ;
-	User user3 ;
-	User user4 ;
-	User user5 ;
-	Teams team1 ;
-	Teams team2 ;
-	Teams team3 ;
-	// ****************************
 
 	@RequestMapping("/harfRoundGameKyokuList")
-	public String harfRoundGameKyokuList(@ModelAttribute("groupId") String groupId,
+	public String harfRoundGameKyokuList(
+							 @ModelAttribute("groupId") String groupId,
 							 @ModelAttribute("playDate") String playDate,
 							 Model model) {
 
@@ -61,9 +49,7 @@ public class HarfRoundGameTotalController {
 		model.addAttribute("playDate", playDate);
 
 		// user情報を取得
-//		List<User> userList = userService.findAll();
-		// test data用
-		List<User> userList = getTestDataMembersInfo();
+		List<User> userList = userService.findAll();
 		// user情報が無かったらExceptionを発生
 		if (userList == null || userList.size() == 0) {
 			// エラー画面に遷移
@@ -71,8 +57,7 @@ public class HarfRoundGameTotalController {
 		model.addAttribute("userList", userList);
 
 		// グループ実施日を取得
-//		TeamsPlayDate groupPlayDate = groupPlayDateService.findByGroupIdAndPlayDate(groupId, playDate);
-		TeamsPlayDate groupPlayDate = getTestDataTeamsPlayDateInfo(groupId, playDate);
+		TeamsPlayDate groupPlayDate = groupPlayDateService.findByGroupIdAndPlayDate(groupId, playDate);
 		// groupPlayDate情報が無かったらExceptionを発生
 		if (groupPlayDate == null) {
 			// エラー画面に遷移
@@ -180,7 +165,7 @@ public class HarfRoundGameTotalController {
 	}
 
 	/**
-	 * entity情報をsetする
+	 * PlayerResultPointのentity情報をsetする
 	 * @param point
 	 * @return
 	 */
@@ -195,131 +180,6 @@ public class HarfRoundGameTotalController {
 		dto.hakoFromPlayer = point.hakoFromPlayer;
 		dto.yakumanFlag = point.yakumanFlag;
 		return dto;
-	}
-
-	/**
-	 * dummy Data
-	 *  参加者達の情報を取得
-	 */
-	private List<User> getTestDataMembersInfo() {
-		List<User> userlist = new ArrayList<User>();
-
-//		userlist.add(createTestMemberInfo("001","ino","dcp"));
-//		userlist.add(createTestMemberInfo("002","nozomi","dcp"));
-//		userlist.add(createTestMemberInfo("003","mamiya","dcp"));
-//		userlist.add(createTestMemberInfo("004","nami","dcp"));
-//		userlist.add(createTestMemberInfo("005","kudo","dcp"));
-
-		return userlist;
-	}
-
-	/**
-	 * dummy data
-	 * 参加者の情報を取得
-	 */
-	private User createTestMemberInfo(String userId, String userName, String groupId1) {
-		User user = new User();
-		user.userId = userId;
-		user.userName = userName;
-		user.groupId1 = groupId1;
-//		user.registrationDate = (java.sql.Date) new Date();
-
-		return user;
-	}
-
-	/**
-	 * dummy Data
-	 *  チーム実施日の情報を取得
-	 */
-	private TeamsPlayDate getTestDataTeamsPlayDateInfo(String groupId, String playDate) {
-		List<TeamsPlayDate> teamlist = new ArrayList<TeamsPlayDate>();
-		if (groupId.equals("001") && playDate.equals("2020/12/01")) {
-			return createTestTeamPlayDateInfo("001","2020/12/01");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/02")) {
-			return createTestTeamPlayDateInfo("001","2020/12/02");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/03")) {
-			return createTestTeamPlayDateInfo("001","2020/12/03");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/04")) {
-			return createTestTeamPlayDateInfo("001","2020/12/04");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/21")) {
-			return createTestTeamPlayDateInfo("001","2020/12/21");
-		} else if (groupId.equals("001") && playDate.equals("2020/12/31")) {
-			return createTestTeamPlayDateInfo("001","2020/12/31");
-		} else if (groupId.equals("001") && playDate.equals("2021/12/04")) {
-			return createTestTeamPlayDateInfo("001","2021/01/04");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/01")) {
-			return createTestTeamPlayDateInfo("002","2020/12/01");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/02")) {
-			return createTestTeamPlayDateInfo("002","2020/12/02");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/03")) {
-			return createTestTeamPlayDateInfo("002","2020/12/03");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/04")) {
-			return createTestTeamPlayDateInfo("002","2020/12/04");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/21")) {
-			return createTestTeamPlayDateInfo("002","2020/12/21");
-		} else if (groupId.equals("002") && playDate.equals("2020/12/31")) {
-			return createTestTeamPlayDateInfo("002","2020/12/31");
-		} else if (groupId.equals("002") && playDate.equals("2021/01/04")) {
-			return createTestTeamPlayDateInfo("002","2021/01/04");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/01")) {
-			return createTestTeamPlayDateInfo("003","2020/12/01");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/02")) {
-			return createTestTeamPlayDateInfo("003","2020/12/02");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/03")) {
-			return createTestTeamPlayDateInfo("003","2020/12/03");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/04")) {
-			return createTestTeamPlayDateInfo("003","2020/12/04");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/21")) {
-			return createTestTeamPlayDateInfo("003","2020/12/21");
-		} else if (groupId.equals("003") && playDate.equals("2020/12/31")) {
-			return createTestTeamPlayDateInfo("003","2020/12/31");
-		} else if (groupId.equals("003") && playDate.equals("2021/01/04")) {
-			return createTestTeamPlayDateInfo("003","2021/01/04");
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * dummy data
-	 * チームの実施日を取得
-	 */
-	private TeamsPlayDate createTestTeamPlayDateInfo(String groupId, String playDate) {
-		TeamsPlayDate teamsPlayDate = new TeamsPlayDate();
-		teamsPlayDate.groupId = groupId;
-		teamsPlayDate. playDate = playDate;
-		teamsPlayDate.registrationDate = new Date();
-
-		return teamsPlayDate;
-	}
-
-	/**
-	 * dummy Data
-	 *  参加者達の情報を取得
-	 */
-	private List<ParticipantHeaderInfoDto> getTestDataParticipantHeaderInfoDtoInfo() {
-		List<ParticipantHeaderInfoDto> participantHeaderInfoDtolist = new ArrayList<ParticipantHeaderInfoDto>();
-
-		participantHeaderInfoDtolist.add(createTestParticipantHeaderInfoDtoInfo("001","ino","dcp"));
-		participantHeaderInfoDtolist.add(createTestParticipantHeaderInfoDtoInfo("002","nozomi","dcp"));
-		participantHeaderInfoDtolist.add(createTestParticipantHeaderInfoDtoInfo("003","mamiya","dcp"));
-		participantHeaderInfoDtolist.add(createTestParticipantHeaderInfoDtoInfo("004","nami","dcp"));
-		participantHeaderInfoDtolist.add(createTestParticipantHeaderInfoDtoInfo("005","kudo","dcp"));
-
-		return participantHeaderInfoDtolist;
-	}
-
-	/**
-	 * dummy data
-	 * 参加者の情報を取得
-	 */
-	private ParticipantHeaderInfoDto createTestParticipantHeaderInfoDtoInfo(String userId, String userName, String groupId1) {
-		ParticipantHeaderInfoDto user = new ParticipantHeaderInfoDto();
-		user.userId = userId;
-		user.userName = userName;
-		user.groupId1 = groupId1;
-
-		return user;
 	}
 
 }

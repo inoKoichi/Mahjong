@@ -16,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.marjan.common.CommonUtility;
+import com.app.marjan.constant.CommonConstant;
+import com.app.marjan.dto.PlayRuleSettingDto;
 import com.app.marjan.entity.TeamsPlayDate;
 import com.app.marjan.repository.TeamsPlayDateRepository;
 
@@ -45,6 +48,16 @@ public class TeamsPlayDateService {
 	 */
 	public TeamsPlayDate updata(TeamsPlayDate user) {
 		return groupPlayDateRepository.save(user);
+	}
+
+	/**
+	 * user情報を更新する
+	 * @param userId
+	 * @return User
+	 */
+	public TeamsPlayDate save(PlayRuleSettingDto playRuleSettingDto) {
+		TeamsPlayDate TeamsPlayDate = this.setTeamsPlayDate(playRuleSettingDto);
+		return groupPlayDateRepository.save(TeamsPlayDate);
 	}
 
 	/**
@@ -110,6 +123,25 @@ public class TeamsPlayDateService {
 //		return result;
 		// test Data
 		return getTestDataTeamsPlayDateInfo(groupId, playDate);
+	}
+
+	/**
+	 * TeamsPlayDateのEntityに設定
+	 * @param playRuleSettingDto
+	 * @return teamsPlayDate
+	 */
+	private TeamsPlayDate setTeamsPlayDate(PlayRuleSettingDto playRuleSettingDto) {
+		TeamsPlayDate teamsPlayDate = new TeamsPlayDate();
+		teamsPlayDate.groupId = playRuleSettingDto.groupId;
+		teamsPlayDate.playDate = playRuleSettingDto.playDate;
+		teamsPlayDate.playGroupNo = playRuleSettingDto.playGroupNo;
+		teamsPlayDate.settingNo = playRuleSettingDto.settingNo;
+		teamsPlayDate.registrationDate = CommonUtility.convertStringToDate(CommonUtility.getCurrentDate());
+		teamsPlayDate.updateDate = CommonUtility.convertStringToDate(CommonUtility.getCurrentDate());
+		teamsPlayDate.deleteDate = null;
+		teamsPlayDate.deleteFlag = CommonConstant.ZERO;
+
+		return teamsPlayDate;
 	}
 
 	/**

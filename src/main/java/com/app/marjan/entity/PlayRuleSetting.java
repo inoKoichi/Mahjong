@@ -15,52 +15,66 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "PLAYER_RESULT_POINT")
+@Table(name = "PLAYER_RULE_SETTING")
 public class PlayRuleSetting {
 
+	/** 設定番号 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "no")
-	public Integer no;
+	@Column(name = "setting_no")
+	public String settingNo;
 
+	/** グループID */
 	@Column(name = "group_id")
 	public String groupId;
 
+	/** プレイ日 */
 	@Column(name = "play_date")
 	public String playDate;
 
-	@Column(name = "hanso")
-	public Integer hanso;
+	/** プレイヤーグループ番号 */
+	@Column(name = "player_group_no")
+	public String playGroupNo;
 
-	@Column(name = "user_id")
-	public String userId;
+	/** 順位報酬(1位) */
+	@Column(name = "rank_reward1")
+	public Integer rankReward1;
 
-	@Column(name = "user_name")
-	public String userName;
+	/** 順位報酬(2位) */
+	@Column(name = "rank_reward2")
+	public Integer rankReward2;
 
-	@Column(name = "point")
-	public Integer point;
+	/** 順位報酬(3位) */
+	@Column(name = "rank_reward3")
+	public Integer rankReward3;
 
+	/** 順位報酬(4位) */
+	@Column(name = "rank_reward4")
+	public Integer rankReward4;
+
+	/** 飛び報酬 */
+	@Column(name = "tobi_reward")
+	public Integer tobiReward;
+
+	/** レート金 */
+	@Column(name = "rate_money")
+	public Integer rateMoney;
+
+	/** チップ金 */
 	@Column(name = "tip_money")
 	public Integer tipMoney;
 
-	@Column(name = "money")
-	public Integer money;
+	/** おか */
+	@Column(name = "return_point")
+	public Integer returnPoint;
 
-	@Column(name = "rank")
-	public Integer rank;
+	/** 役満ロン報酬 */
+	@Column(name = "yakuman_ron")
+	public Integer yakumanRon;
 
-	@Column(name = "seat_wind")
-	public String seatWind;
-
-	@Column(name = "hako_flag")
-	public Integer hakoFlag;
-
-	@Column(name = "hako_from_player")
-	public Integer hakoFromPlayer;
-
-	@Column(name = "yakuman_flag")
-	public String yakumanFlag;
+	/** 役満ツモ報酬 */
+	@Column(name = "yakuman_tsumo")
+	public Integer yakumanTsumo;
 
 	@Column(name = "registration_date")
 	public Date registrationDate;
@@ -73,8 +87,5 @@ public class PlayRuleSetting {
 
 	@Column(name = "delete_flag")
 	public Integer deleteFlag;
-
-	@Column(name = "score")
-	public Integer score;
 
 }

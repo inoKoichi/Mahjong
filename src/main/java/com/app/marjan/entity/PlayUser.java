@@ -1,6 +1,6 @@
 package com.app.marjan.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,14 +17,17 @@ import lombok.Setter;
 public class  PlayUser {
 
 	@Id
-	@Column(name = "user_id")
-	public String userId;
+	@Column(name = "player_group_no")
+	public String playGroupNo;
 
 	@Column(name = "group_id")
 	public String groupId;
 
 	@Column(name = "play_date")
 	public String playDate;
+
+	@Column(name = "user_id")
+	public String userId;
 
 	@Column(name = "user_name")
 	public String userName;
@@ -39,6 +42,6 @@ public class  PlayUser {
 	public Date deleteDate;
 
 	@Column(name = "delete_flag")
-	public Boolean deleteFlag;
+	public Integer deleteFlag;
 
 }
